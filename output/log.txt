@@ -1,0 +1,20 @@
+-----------------------------------------
+Fri Mar  9 21:51:27 2018
+Problem Size: 1024
+-----------------------------------------
+[0] Imperative wall clock time = 0.000462
+    TEST PASSED
+[1] Imperative wall clock time = 0.000505
+    TEST PASSED
+[2] Imperative wall clock time = 0.000440
+    TEST PASSED
+-----------------------------------------
+[0] Parallel wall clock time = 0.000000
+    TEST FAILED
+[1] Parallel wall clock time = 0.000001
+    TEST FAILED
+[2] Parallel wall clock time = 0.000000
+    TEST FAILED
+-----------------------------------------
+
+
