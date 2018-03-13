@@ -36,48 +36,65 @@
 #include <sys/time.h>
 #include <time.h>
 #include <omp.h>
+#include <math.h>
 
 struct timeval startwtime, endwtime;
 double seq_time;
-FILE *output_file;
+FILE *file_to_write;
 FILE *log_file;
 
-int N;     // data array size
-int *arr;  // arr data array
+int inputN, N; // data array size
+int *arr;    // arr data array
 int num_thread;
 int test_amount;
+double avg_serial = 0, avg_par = 0;
 
 const int ASCENDING  = 1;
 const int DESCENDING = 0;
 
 void init(void);
 void print(void);
-void sort(void);
 void test(void);
 static inline void exchange(int i, int j);
 void compare(int i, int j, int dir);
 void bitonicMerge(int lo, int cnt, int dir);
 void recBitonicSort(int lo, int cnt, int dir);
 void impBitonicSort(void);
-void parBitonicSort(void);
-
+void parImpBitonicSort(void);
+void parRecBitonicSort(int lo, int cnt, int dir);
+void parBitonicMerge(int lo, int cnt, int dir);
 
 /** the main program **/ 
 int main(int argc, char **argv) {
 
   if (argc == 2) {
     test_amount = 3;
+    num_thread = 8;
   } else if (argc == 3 && atoi(argv[2]) > 0) {
     test_amount = atoi(argv[2]);
+    num_thread = 8;
+  } else if (argc == 4 && atoi(argv[2]) > 0) {
+    test_amount = atoi(argv[2]);
+    num_thread = atoi(argv[3]);
   } else {
     printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
     printf("  where x is test amount (optional with default=3, must be greater than 0)\n");
     exit(1);
   }
 
-  N = atoi(argv[1]);
+  inputN = atoi(argv[1]);
+  double logarithm = log2(inputN);
+  N = exp2(ceil(logarithm));
+
   arr = (int *) malloc(N * sizeof(int));
-  num_thread = omp_get_max_threads();
+  init();
+  file_to_write = fopen("data/input.txt", "w");
+  if (file_to_write != NULL) {
+    int j;
+    for (j = 0; j < inputN; j++)
+      fprintf(file_to_write, "%d\n", arr[j]);
+    fclose(file_to_write);
+  }
 
   log_file = fopen("output/log.txt", "a");
   if (log_file == NULL) {
@@ -89,18 +106,20 @@ int main(int argc, char **argv) {
   struct tm* timeinfo;
   time(&rawtime);
   timeinfo = localtime(&rawtime);
+  printf("%d %d\n", inputN, N);
   printf("-----------------------------------------\n");
   fprintf(log_file, "-----------------------------------------\n");
   fprintf(log_file, "%s", asctime(timeinfo));
-  fprintf(log_file, "Problem Size: %d\n", N);
+  fprintf(log_file, "Problem Size: %d\n", inputN);
   fprintf(log_file, "-----------------------------------------\n");
 
   int i;
   for (i = 0; i < test_amount; i++) {
     init();
-
+    
     // [Start Time]
     gettimeofday (&startwtime, NULL);
+    //recBitonicSort(0, N, ASCENDING);
     impBitonicSort();
     gettimeofday (&endwtime, NULL);
     // [End Time]
@@ -111,6 +130,7 @@ int main(int argc, char **argv) {
     fprintf(log_file, "[%d] Imperative wall clock time = %f\n", i, seq_time);
     
     test();
+    avg_serial += seq_time;
   }
 
   printf("-----------------------------------------\n");
@@ -120,7 +140,8 @@ int main(int argc, char **argv) {
 
     // [Start Time]
     gettimeofday (&startwtime, NULL);
-    parBitonicSort();
+    //parRecBitonicSort(0, N, ASCENDING);
+    parImpBitonicSort();
     gettimeofday (&endwtime, NULL);
     // [End Time]
 
@@ -132,18 +153,20 @@ int main(int argc, char **argv) {
     test();
 
     if (i < test_amount - 1) {
-      output_file = fopen("output/output.txt", "w");
-      if (output_file != NULL) {
+      file_to_write = fopen("data/output.txt", "w");
+      if (file_to_write != NULL) {
         int j;
-        for (j = 0; j < N; j++)
-          fprintf(output_file, "%d\n", arr[j]);
-        fclose(output_file);
+        for (j = 0; j < inputN; j++)
+          fprintf(file_to_write, "%d\n", arr[j]);
+        fclose(file_to_write);
       }
     }
     
+    avg_par += seq_time;
   }
   printf("-----------------------------------------\n");
   fprintf(log_file, "-----------------------------------------\n\n\n");
+  printf("%f %f\n", avg_serial/test_amount, avg_par/test_amount);
   fclose(log_file);
 
   return 0;
@@ -166,11 +189,15 @@ void test() {
 
 /** procedure init() : initialize array "arr" with data **/
 void init() {
-  srand(0);
+  int seed = 13515057;
+  srand(seed);
   int i;
   for (i = 0; i < N; i++) {
-    arr[i] = rand() % N; // (N - i);
-    // a[i] = (N - i);
+    if (i < inputN) {
+      arr[i] = rand() % inputN;
+    } else {
+      arr[i] = inputN;
+    }
   }
 }
 
@@ -242,15 +269,6 @@ void recBitonicSort(int lo, int cnt, int dir) {
 }
 
 
-/** function sort() 
-   Caller of recBitonicSort for sorting the entire array of length N 
-   in ASCENDING order
- **/
-void sort() {
-  recBitonicSort(0, N, ASCENDING);
-}
-
-
 
 /*
   imperative version of bitonic sort
@@ -273,6 +291,63 @@ void impBitonicSort() {
   }
 }
 
-void parBitonicSort() {
+void parImpBitonicSort() {
+  int i,j,k;
   
+  for (k=2; k<=N; k=2*k) {
+    for (j=k>>1; j>0; j=j>>1) {
+      //#pragma omp parallel for num_threads(num_thread) shared(arr,N) private(i)
+      #pragma omp parallel for num_threads(num_thread) shared(arr,j,k,N) private(i)
+      for (i=0; i<N; i++) {
+        int ij=i^j;
+        if ((ij)>i) {
+          if ((i&k)==0 && arr[i] > arr[ij]) 
+            exchange(i,ij);
+          if ((i&k)!=0 && arr[i] < arr[ij])
+            exchange(i,ij);
+        }
+      }
+    }
+  }
+}
+
+void parRecBitonicSort(int lo, int cnt, int dir) {
+  if (cnt>1) {
+    int k=cnt/2;
+
+    #pragma omp parallel
+    {
+      #pragma omp single
+      {
+        #pragma omp task
+        parRecBitonicSort(lo, k, ASCENDING);
+
+        #pragma omp task
+        parRecBitonicSort(lo+k, k, DESCENDING);
+      }
+    }
+    
+    parBitonicMerge(lo, cnt, dir);
+  }
+}
+
+void parBitonicMerge(int lo, int cnt, int dir) {
+  if (cnt>1) {
+    int k=cnt/2;
+    int i;
+    for (i=lo; i<lo+k; i++)
+      compare(i, i+k, dir);
+    
+    #pragma omp parallel
+    {
+      #pragma omp single
+      {
+        #pragma omp task
+        parBitonicMerge(lo, k, dir);
+
+        #pragma omp task
+        parBitonicMerge(lo+k, k, dir);
+      }
+    }
+  }
 }
