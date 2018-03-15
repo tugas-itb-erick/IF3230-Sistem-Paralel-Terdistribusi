@@ -28,7 +28,7 @@ Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* 
 Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dari 4 tidak mempercepat waktu eksekusi program melebihi dengan menggunakan 4 thread. Hasil pengujian tersebut dapat dilihat pada folder **uji_thread**, nama file ```ujiX.txt``` dengan ```X``` mensimbolkan jumlah thread yang digunakan. 
 
 ### Pengukuran Kinerja (Tabel)
-Berikut adalah tabel pengujian untuk bitonic sort serial dan paralel. (num_thread=4)
+Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel. (num_thread=4)
 
 | *Ukuran Array* | *Percobaan 1 (mikrosekon)*    | *Percobaan 2 (mikrosekon)*    | *Percobaan 3 (mikrosekon)*    | *Percobaan 4 (mikrosekon)*    | Percobaan 5 (mikrosekon)    | *Rata-Rata (mikrosekon)*      |
 | ------------ | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
@@ -37,6 +37,13 @@ Berikut adalah tabel pengujian untuk bitonic sort serial dan paralel. (num_threa
 | 100000       | 111040.115356 (**serial**)   71974.039078 (**paralel**)  | 104829.072952 (**serial**)   59442.043304 (**paralel**)  | 104854.106903 (**serial**)   58248.996735 (**paralel**)  | 105112.075806 (**serial**)   54050.922394 (**paralel**)  | 108012.914658 (**serial**)   64358.949661 (**paralel**)  | 106769.657135 (**serial**) 61614.990234 (**paralel**)  |
 | 200000       | 236206.054688 (**serial**) 136006.116867 (**paralel**) | 231781.959534 (**serial**) 122766.971588 (**paralel**) | 231312.990189 (**serial**) 121330.022812 (**paralel**) | 231589.078903 (**serial**) 121577.978134 (**paralel**) | 230040.073395 (**serial**) 122328.996658 (**paralel**) | 232186.031342 (**serial**) 124802.017212 (**paralel**) |
 | 400000       | 514862.060547 (**serial**) 277946.949005 (**paralel**) | 522362.947464 (**serial**) 257061.958313 (**paralel**) | 520067.930222 (**serial**) 287576.913834 (**paralel**) | 510907.888412 (**serial**) 275991.916656 (**paralel**) | 509989.976883 (**serial**) 264043.092728 (**paralel**) | 515638.160706 (**serial**) 272524.166107 (**paralel**) |
+
+Berikut adalah tabel speedup dan efisiensi dengan menggunakan 4 thread. 
+| *Ukuran Array* |
+| ------------ |
+| 5000         |
+| 5000         |
+| 5000         |
 
 ### Analisis Kinerja Serial dan Paralel
 Berdasarkan pengukuran kinerja pada poin sebelumnya, terlihat bahwa kinerja program paralel lebih cepat daripada serial, 
