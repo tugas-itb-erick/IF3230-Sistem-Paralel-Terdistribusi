@@ -40,11 +40,11 @@ menunjukkan bahwa variabel tersebut digunakan oleh semua thread sedangkan parame
 dimiliki oleh masing-masing thread.
 
 ### Analisis Solusi
-Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat. Karena paralelisasi dilakukan pada iterasi 
-penukaran elemen (kompleksitasnya adalah ```O(N)```), maka kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
-```O(N/K)``` dengan K adalah jumlah thread yang digunakan, sehingga kompleksitas akhir algoritma menjadi ```O(N/K*(log N)^2)```. 
+Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat dengan speedup hampir 2 kali. Karena paralelisasi dilakukan pada iterasi 
+penukaran elemen (kompleksitasnya adalah ```O(N)```), kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
+```O(N/K)``` dengan K adalah jumlah thread yang digunakan. Kompleksitas akhir algoritma menjadi ```O(N/K*(log N)^2)```. 
 Solusi ini sudah cukup baik, namun bisa ditingkatkan lagi apabila ditemukan cara paralelisasi yang lebih efektif 
-(misalnya dengan memparalelisasi looping pertama dan kedua). Cara lain adalah dengan merancang algoritma bitonic sort 
+(misalnya dengan memparalelisasi looping pertama dan kedua dengan benar). Cara lain untuk mengoptimasi adalah dengan merancang algoritma bitonic sort 
 yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array bukan kelipatan 2 (pada solusi yang saya gunakan masih 
 menggunakan elemen dummy). 
 
@@ -52,6 +52,10 @@ menggunakan elemen dummy).
 Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* dengan masing-masing core memiliki 2 *logical core*. Apabila saya menggunakan thread lebih dari itu, performansi program tidak melebihi program yang menggunakan  4 thread. Hal tersebut demikian karena PC saya memiliki total 4 core sehingga apabila menggunakan thread lebih dari 4, 
 
 Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dari 4 tidak mempercepat waktu eksekusi program melebihi dengan menggunakan 4 thread. Hasil pengujian tersebut dapat dilihat pada folder **uji_thread**, nama file ```ujiX.txt``` dengan ```X``` mensimbolkan jumlah thread yang digunakan. 
+
+Sebenarnya bila program ini dijalankan di PC saya, efisiensi akan lebih baik apabila menggunakan 2 thread karena walaupun speed up sedikit lebih kecil, tetapi
+resource yang digunakan lebih sedikit daripada 4 thread sehingga 2 thread lebih efisien. Akan tetapi karena yang ingin dikejar adalah 
+program yang dapat melakukan bitonic sort dengan cepat (orientasi pada speedup), maka saya tetap menggunakan 4 thread. 
 
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel. (num_thread=4)
@@ -68,11 +72,11 @@ Berikut adalah tabel speedup dan efisiensi dengan menggunakan 4 thread.
 
 | **Ukuran Array** | **Speed Up** | **Efisiensi** |
 | ------------ | --- | --- |
-| 5000         |     |     |
-| 50000        |     |     |
-| 100000       |     |     |
-| 200000       |     |     |
-| 400000       |     |     |
+| 5000         |  0.797x   |  19.917%   |
+| 50000        |  1.701x   |  42.530%   |
+| 100000       |  1.732x   |  43.321%   |
+| 200000       |  1.860x   |  46.510%   |
+| 400000       |  1.892x   |  47.302%   |
 
 ### Analisis Kinerja Serial dan Paralel
 Berdasarkan pengukuran kinerja pada poin sebelumnya, terlihat bahwa kinerja program paralel lebih cepat daripada serial, 
@@ -80,10 +84,9 @@ kecuali untuk kasus ukuran array 5000. Pada kasus array 5000, program serial leb
 tambahan untuk melakukan context switching. Semakin besar jumlah thread, semakin banyak context switching yang terjadi. Akan tetapi, 
 apabila menggunakan 2 thread, program paralel cenderung lebih cepat karena jumlah context switching lebih kecil. Namun, untuk program ini
 saya tetap menggunakan 4 thread karena untuk kasus array yang 
-berukuran lebih besar, bitonic sort dengan 4 thread bekerja lebih cepat ketimbang dengan 2 thread. 
+berukuran lebih besar, bitonic sort dengan 4 thread bekerja lebih cepat ketimbang dengan 2 thread.
 
-Apabila dilihat dari tabel, efisiensi kinerja bitonic sort paralel dengan serial menjadi cenderung semakin tinggi, yaitu 
-mulai dari .. hingga... Hal tersebut demikian karena waktu untuk context switching menjadi tidak signifikan apabila 
+Apabila dilihat dari tabel, efisiensi maupun speedup kinerja bitonic sort paralel dengan serial menjadi cenderung semakin tinggi. Hal tersebut demikian karena waktu untuk context switching menjadi tidak signifikan apabila 
 ukuran permasalahan (array) lebih besar. Kesimpulannya, bitonic sort paralel memiliki performa yang lebih baik daripada 
 bitonic sort serial kecuali untuk kasus persoalan yang kecil. Semakin besar jumlah thread, semakin cepat performa program paralel 
 tetapi dibutuhkan waktu context switching yang bisa menjadi signifikan untuk kasus persoalan yang kecil. Jumlah thread yang melebihi 
