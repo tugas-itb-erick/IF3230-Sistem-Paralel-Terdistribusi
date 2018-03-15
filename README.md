@@ -30,7 +30,7 @@ Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dar
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel. (num_thread=4)
 
-| *Ukuran Array* | *Percobaan 1 (mikrosekon)*    | *Percobaan 2 (mikrosekon)*    | *Percobaan 3 (mikrosekon)*    | *Percobaan 4 (mikrosekon)*    | Percobaan 5 (mikrosekon)    | *Rata-Rata (mikrosekon)*      |
+| **Ukuran Array** | **Percobaan 1 (mikrosekon)**    | **Percobaan 2 (mikrosekon)**    | **Percobaan 3 (mikrosekon)**    | **Percobaan 4 (mikrosekon)**    | **Percobaan 5 (mikrosekon)**    | **Rata-Rata (mikrosekon)**      |
 | ------------ | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | 5000         | 4154.920578 (**serial**) 4968.881607 (**paralel**)     | 4054.069519 (**serial**) 5530.118942 (**paralel**)    | 4467.010498 (**serial**) 2573.966980 (**paralel**)    | 4848.957062 (**serial**) 10330.915451 (**paralel**)   |  3962.993622 (**serial**) 3566.980362 (**paralel**)   | 4297.590256 (**serial**) 5394.172668 (**paralel**)    |
 | 50000        | 50214.052200 (**serial**) 37576.913834 (**paralel**)   | 56967.973709 (**serial**) 27436.971664 (**paralel**)   | 48700.094223 (**serial**) 26001.930237 (**paralel**)   | 51848.888397 (**serial**) 29010.057449 (**paralel**)   | 48896.074295 (**serial**) 30823.945999 (**paralel**)   | 51325.416565 (**serial**) 30169.963837 (**paralel**)   |
@@ -39,11 +39,14 @@ Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel. (num
 | 400000       | 514862.060547 (**serial**) 277946.949005 (**paralel**) | 522362.947464 (**serial**) 257061.958313 (**paralel**) | 520067.930222 (**serial**) 287576.913834 (**paralel**) | 510907.888412 (**serial**) 275991.916656 (**paralel**) | 509989.976883 (**serial**) 264043.092728 (**paralel**) | 515638.160706 (**serial**) 272524.166107 (**paralel**) |
 
 Berikut adalah tabel speedup dan efisiensi dengan menggunakan 4 thread. 
-| *Ukuran Array* |
-| ------------ |
-| 5000         |
-| 5000         |
-| 5000         |
+
+| **Ukuran Array** | **Speed Up** | **Efisiensi** |
+| ------------ | --- | --- |
+| 5000         |     |     |
+| 50000        |     |     |
+| 100000       |     |     |
+| 200000       |     |     |
+| 400000       |     |     |
 
 ### Analisis Kinerja Serial dan Paralel
 Berdasarkan pengukuran kinerja pada poin sebelumnya, terlihat bahwa kinerja program paralel lebih cepat daripada serial, 
