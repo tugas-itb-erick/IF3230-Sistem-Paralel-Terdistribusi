@@ -23,6 +23,7 @@ Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* 
 Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dari 4 tidak mempercepat waktu eksekusi program melebihi dengan menggunakan 4 thread. Hasil pengujian tersebut dapat dilihat pada folder *uji_thread*. 
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian untuk bitonic sort serial dan paralel. 
+
 | Ukuran Array | Percobaan 1 (mikrosekon)    | Percobaan 2 (mikrosekon)    | Percobaan 3 (mikrosekon)    | Percobaan 4 (mikrosekon)    | Percobaan 5 (mikrosekon)    | Rata-Rata (mikrosekon)      |
 | ------------ | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | 5000         | 4154.920578 (**serial**) 4968.881607 (**paralel**)     | 4054.069519 (**serial**) 5530.118942 (**paralel**)    | 4467.010498 (**serial**) 2573.966980 (**paralel**)    | 4848.957062 (**serial**) 10330.915451 (**paralel**)   |  3962.993622 (**serial**) 3566.980362 (**paralel**)   | 4297.590256 (**serial**) 5394.172668 (**paralel**)    |
