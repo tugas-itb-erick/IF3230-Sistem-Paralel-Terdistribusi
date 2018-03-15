@@ -1,33 +1,6 @@
 /*
- bitonic.c 
-
- This file contains two different implementations of the bitonic sort
-        recursive  version 
-        imperative version :  impBitonicSort() 
- 
-
- The bitonic sort is also known as Batcher Sort. 
- For a reference of the algorithm, see the article titled 
- Sorting networks and their applications by K. E. Batcher in 1968 
-
-
- The following codes take references to the codes avaiable at 
-
- http://www.cag.lcs.mit.edu/streamit/results/bitonic/code/c/bitonic.c
-
- http://www.tools-of-computing.com/tc/CS/Sorts/bitonic_sort.htm
-
- http://www.iti.fh-flensburg.de/lang/algorithmen/sortieren/bitonic/bitonicen.htm 
- */
-
-/*
-------- ---------------------- 
-  Nikos Pitsianis, Duke CS 
------------------------------
-*/
-
-/* 
-  modified by: Erick Wijaya / 131515057
+  Erick Wijaya / 13515057
+  source: https://www2.cs.duke.edu/courses/fall08/cps196.1/Pthreads/bitonic.c
 */
 
 
@@ -55,7 +28,7 @@ const int DESCENDING = 0;
 void init(void);
 void print(void);
 void test(void);
-static inline void exchange(int i, int j);
+void exchange(int i, int j);
 void compare(int i, int j, int dir);
 void bitonicMerge(int lo, int cnt, int dir);
 void recBitonicSort(int lo, int cnt, int dir);
@@ -69,10 +42,10 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     test_amount = 3;
-    num_thread = 8;
+    num_thread = 4;
   } else if (argc == 3 && atoi(argv[2]) > 0) {
     test_amount = atoi(argv[2]);
-    num_thread = 8;
+    num_thread = 4;
   } else if (argc == 4 && atoi(argv[2]) > 0) {
     test_amount = atoi(argv[2]);
     num_thread = atoi(argv[3]);
@@ -81,6 +54,8 @@ int main(int argc, char **argv) {
     printf("  where x is test amount (optional with default=3, must be greater than 0)\n");
     exit(1);
   }
+
+  
 
   inputN = atoi(argv[1]);
   double logarithm = log2(inputN);
@@ -119,15 +94,15 @@ int main(int argc, char **argv) {
     
     // [Start Time]
     gettimeofday (&startwtime, NULL);
-    //recBitonicSort(0, N, ASCENDING);
     impBitonicSort();
     gettimeofday (&endwtime, NULL);
     // [End Time]
 
     seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
             + endwtime.tv_sec - startwtime.tv_sec);
-    printf("[%d] Imperative wall clock time = %f\n", i, seq_time);
-    fprintf(log_file, "[%d] Imperative wall clock time = %f\n", i, seq_time);
+    seq_time *= 1000000;
+    printf("[%d] Serial wall clock time (ms) = %f\n", i, seq_time);
+    fprintf(log_file, "[%d] Serial wall clock time (ms) = %f\n", i, seq_time);
     
     test();
     avg_serial += seq_time;
@@ -140,15 +115,15 @@ int main(int argc, char **argv) {
 
     // [Start Time]
     gettimeofday (&startwtime, NULL);
-    //parRecBitonicSort(0, N, ASCENDING);
     parImpBitonicSort();
     gettimeofday (&endwtime, NULL);
     // [End Time]
 
     seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
             + endwtime.tv_sec - startwtime.tv_sec);
-    printf("[%d] Parallel wall clock time = %f\n", i, seq_time);
-    fprintf(log_file, "[%d] Parallel wall clock time = %f\n", i, seq_time);
+    seq_time *= 1000000;
+    printf("[%d] Parallel wall clock time (ms) = %f\n", i, seq_time);
+    fprintf(log_file, "[%d] Parallel wall clock time (ms) = %f\n", i, seq_time);
     
     test();
 
@@ -194,9 +169,9 @@ void init() {
   int i;
   for (i = 0; i < N; i++) {
     if (i < inputN) {
-      arr[i] = rand() % inputN;
+      arr[i] = (int)rand();
     } else {
-      arr[i] = inputN;
+      arr[i] = 2147483647;
     }
   }
 }
@@ -212,8 +187,8 @@ void print() {
 
 
 
-/** INLINE procedure exchange() : pair swap **/
-inline void exchange(int i, int j) {
+/** procedure exchange() : pair swap **/
+void exchange(int i, int j) {
   int t;
   t = arr[i];
   arr[i] = arr[j];
@@ -294,10 +269,12 @@ void impBitonicSort() {
 void parImpBitonicSort() {
   int i,j,k;
   
+  //#pragma omp parallel shared(N) private(j,k)
   for (k=2; k<=N; k=2*k) {
     for (j=k>>1; j>0; j=j>>1) {
       //#pragma omp parallel for num_threads(num_thread) shared(arr,N) private(i)
       #pragma omp parallel for num_threads(num_thread) shared(arr,j,k,N) private(i)
+      //#pragma omp parallel for
       for (i=0; i<N; i++) {
         int ij=i^j;
         if ((ij)>i) {

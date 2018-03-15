@@ -1,0 +1,28 @@
+-----------------------------------------
+Thu Mar 15 17:00:19 2018
+Problem Size: 500000
+-----------------------------------------
+[0] Serial wall clock time (ms) = 558934.926987
+    TEST PASSED
+[1] Serial wall clock time (ms) = 545789.003372
+    TEST PASSED
+[2] Serial wall clock time (ms) = 564990.997314
+    TEST PASSED
+[3] Serial wall clock time (ms) = 556946.992874
+    TEST PASSED
+[4] Serial wall clock time (ms) = 545964.956284
+    TEST PASSED
+-----------------------------------------
+[0] Parallel wall clock time (ms) = 300975.084305
+    TEST PASSED
+[1] Parallel wall clock time (ms) = 296840.906143
+    TEST PASSED
+[2] Parallel wall clock time (ms) = 295195.102692
+    TEST PASSED
+[3] Parallel wall clock time (ms) = 293272.972107
+    TEST PASSED
+[4] Parallel wall clock time (ms) = 306406.021118
+    TEST PASSED
+-----------------------------------------
+
+

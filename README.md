@@ -1,17 +1,23 @@
-1. Petunjuk penggunaan program.
+# OpenMP - Bitonic Sort
+IF3230 - Sistem Paralel dan Terdistribusi
+Erick Wijaya - 13515057
+## Deskripsi Singkat
 
-2. Pembagian tugas. Sampaikan dalam list pengerjaan untuk setiap mahasiswa. Sebagai contoh: XXXX mengerjakan fungsi YYYY, ZZZZ, dan YYZZ.
+## Penggunaan Program
+1. Lakukan kompilasi program dengan perintah ```make```.
+2. Jalankan program dengan perintah ```./bitonic_sort n```, dengan ```n``` adalah ukuran array.
 
-3. Laporan pengerjaan, dengan struktur laporan sesuai dengan deskripsi pada bagian sebelumnya.
+## Pembagian Tugas
+Tugas ini dikerjakan oleh Erick Wijaya (13515057). 
 
-Pada pengujian ini, N yang digunakan adalah 5.000, 50.000, 100.000, 200.000, dan 400.000. Agar pengujian lebih akurat, jalankan setiap kasus uji setidaknya tiga kali. Tuliskan hasil pengujian anda pada laporan pengerjaan yang berisi:
+## Laporan Pengujian
+Pada bagian ini akan dijelaskan mengenai deskripsi solusi paralel yang digunakan, analisis solusi, jumlah thread, pengujian, dan analisis hasil uji. 
+### Deskripsi Solusi Paralel
 
-Deskripsi solusi paralel. Berikan ilustrasi jika perlu.
+### Analisis Solusi
 
-Analisis solusi yang anda berikan. Apakah mungkin terdapat solusi yang memberikan kinerja lebih baik?
+### Jumlah Thread
+Jumlah thread yang digunakan adalah 4 karena jumlah core PC saya adalah 4. Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dari 4 tidak mempengaruhi waktu eksekusi program. Hasil pengujian tersebut dapat dilihat pada folder uji. 
+### Pengukuran Kinerja (Tabel)
 
-Jumlah thread yang digunakan. Kenapa anda memilih angka tersebut?
-
-Pengukuran kinerja untuk tiap kasus uji (jumlah N pada array) dibandingkan dengan bitonic sort serial.
-
-Analisis perbandingan kinerja serial dan paralel.
+### Analisis Kinerja Serial dan Paralel
