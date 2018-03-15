@@ -1,28 +1,62 @@
 -----------------------------------------
-Thu Mar 15 17:05:30 2018
-Problem Size: 500000
+Thu Mar 15 17:32:35 2018
+Problem Size: 5000
 -----------------------------------------
-[0] Serial wall clock time (ms) = 554320.096970
+[0] Serial wall clock time (microseconds) = 5064.010620
     TEST PASSED
-[1] Serial wall clock time (ms) = 548016.071320
+[1] Serial wall clock time (microseconds) = 4605.054855
     TEST PASSED
-[2] Serial wall clock time (ms) = 549993.991852
+[2] Serial wall clock time (microseconds) = 4331.111908
     TEST PASSED
-[3] Serial wall clock time (ms) = 558614.969254
+[3] Serial wall clock time (microseconds) = 4417.896271
     TEST PASSED
-[4] Serial wall clock time (ms) = 545908.927917
+[4] Serial wall clock time (microseconds) = 4384.040833
     TEST PASSED
 -----------------------------------------
-[0] Parallel wall clock time (ms) = 302757.978439
+[0] Parallel wall clock time (microseconds) = 3015.041351
     TEST PASSED
-[1] Parallel wall clock time (ms) = 299895.048141
+[1] Parallel wall clock time (microseconds) = 3257.036209
     TEST PASSED
-[2] Parallel wall clock time (ms) = 332694.053650
+[2] Parallel wall clock time (microseconds) = 3993.034363
     TEST PASSED
-[3] Parallel wall clock time (ms) = 301707.029343
+[3] Parallel wall clock time (microseconds) = 3412.961960
     TEST PASSED
-[4] Parallel wall clock time (ms) = 307913.064957
+[4] Parallel wall clock time (microseconds) = 3384.113312
     TEST PASSED
+-----------------------------------------
+Average Serial Time (microseconds): 4560.422897
+Average Parallel Time (microseconds): 3412.437439
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 15 17:32:39 2018
+Problem Size: 50000
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 51193.952560
+    TEST PASSED
+[1] Serial wall clock time (microseconds) = 48680.067062
+    TEST PASSED
+[2] Serial wall clock time (microseconds) = 48995.018005
+    TEST PASSED
+[3] Serial wall clock time (microseconds) = 52207.946777
+    TEST PASSED
+[4] Serial wall clock time (microseconds) = 48742.055893
+    TEST PASSED
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 30575.990677
+    TEST PASSED
+[1] Parallel wall clock time (microseconds) = 30086.040497
+    TEST PASSED
+[2] Parallel wall clock time (microseconds) = 29795.885086
+    TEST PASSED
+[3] Parallel wall clock time (microseconds) = 29105.901718
+    TEST PASSED
+[4] Parallel wall clock time (microseconds) = 29767.990112
+    TEST PASSED
+-----------------------------------------
+Average Serial Time (microseconds): 49963.808060
+Average Parallel Time (microseconds): 29866.361618
 -----------------------------------------
 
 

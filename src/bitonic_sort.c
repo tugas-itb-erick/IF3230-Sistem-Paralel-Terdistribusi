@@ -101,8 +101,8 @@ int main(int argc, char **argv) {
     seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
             + endwtime.tv_sec - startwtime.tv_sec);
     seq_time *= 1000000;
-    printf("[%d] Serial wall clock time (ms) = %f\n", i, seq_time);
-    fprintf(log_file, "[%d] Serial wall clock time (ms) = %f\n", i, seq_time);
+    printf("[%d] Serial wall clock time (microseconds) = %f\n", i, seq_time);
+    fprintf(log_file, "[%d] Serial wall clock time (microseconds) = %f\n", i, seq_time);
     
     test();
     avg_serial += seq_time;
@@ -122,8 +122,8 @@ int main(int argc, char **argv) {
     seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
             + endwtime.tv_sec - startwtime.tv_sec);
     seq_time *= 1000000;
-    printf("[%d] Parallel wall clock time (ms) = %f\n", i, seq_time);
-    fprintf(log_file, "[%d] Parallel wall clock time (ms) = %f\n", i, seq_time);
+    printf("[%d] Parallel wall clock time (microseconds) = %f\n", i, seq_time);
+    fprintf(log_file, "[%d] Parallel wall clock time (microseconds) = %f\n", i, seq_time);
     
     test();
 
@@ -140,6 +140,9 @@ int main(int argc, char **argv) {
     avg_par += seq_time;
   }
   printf("-----------------------------------------\n");
+  fprintf(log_file, "-----------------------------------------\n");
+  fprintf(log_file, "Average Serial Time (microseconds): %f\n", avg_serial/test_amount);
+  fprintf(log_file, "Average Parallel Time (microseconds): %f\n", avg_par/test_amount);
   fprintf(log_file, "-----------------------------------------\n\n\n");
   printf("%f %f\n", avg_serial/test_amount, avg_par/test_amount);
   fclose(log_file);

@@ -1,0 +1,29 @@
+-----------------------------------------
+Thu Mar 15 17:27:47 2018
+Problem Size: 100000
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 111040.115356
+    TEST PASSED
+[1] Serial wall clock time (microseconds) = 104829.072952
+    TEST PASSED
+[2] Serial wall clock time (microseconds) = 104854.106903
+    TEST PASSED
+[3] Serial wall clock time (microseconds) = 105112.075806
+    TEST PASSED
+[4] Serial wall clock time (microseconds) = 108012.914658
+    TEST PASSED
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 71974.039078
+    TEST PASSED
+[1] Parallel wall clock time (microseconds) = 59442.043304
+    TEST PASSED
+[2] Parallel wall clock time (microseconds) = 58248.996735
+    TEST PASSED
+[3] Parallel wall clock time (microseconds) = 54050.922394
+    TEST PASSED
+[4] Parallel wall clock time (microseconds) = 64358.949661
+    TEST PASSED
+-----------------------------------------
+Average Serial Time (microseconds): 106769.657135
+Average Parallel Time (microseconds): 61614.990234
+-----------------------------------------
