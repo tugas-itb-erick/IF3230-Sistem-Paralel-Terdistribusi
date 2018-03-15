@@ -49,7 +49,7 @@ yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array buk
 menggunakan elemen dummy). 
 
 ### Jumlah Thread
-Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* dengan masing-masing core memiliki 2 *logical core*. Apabila saya menggunakan thread lebih dari itu, performansi program tidak melebihi program yang menggunakan  4 thread. Hal tersebut demikian karena PC saya memiliki total 4 core sehingga apabila menggunakan thread lebih dari 4, 
+Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 4 core (2 *physical core* dengan masing-masing core memiliki 2 *logical core*). Apabila saya menggunakan thread lebih dari itu, performansi program tidak melebihi program yang menggunakan  4 thread. Hal tersebut demikian karena PC saya memiliki total 4 core sehingga apabila menggunakan thread lebih dari 4, 
 
 Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dari 4 tidak mempercepat waktu eksekusi program melebihi dengan menggunakan 4 thread. Hasil pengujian tersebut dapat dilihat pada folder **uji_thread**, nama file ```ujiX.txt``` dengan ```X``` mensimbolkan jumlah thread yang digunakan. 
 
