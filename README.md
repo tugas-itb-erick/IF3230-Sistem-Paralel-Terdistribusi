@@ -18,9 +18,35 @@ Tugas ini dikerjakan oleh Erick Wijaya (13515057).
 Pada bagian ini akan dijelaskan mengenai deskripsi solusi paralel yang digunakan, analisis solusi, jumlah thread, pengujian, dan analisis hasil uji. 
 
 ### Deskripsi Solusi Paralel
+Sebelum dijelaskan mengenai deskripsi solusi paralel akan dijelaskan terlebih dulu mengenai deskripsi solusi bitonic sort secara umum.
+Bitonic sort adalah algoritma sorting yang berjalan dengan melakukan penukaran elemen untuk membuat *bitonic sequence*, yaitu deret angka 
+yang nilainya naik lalu turun, atau turun lalu naik. Proses urutan penukaran (compare) dapat dilihat pada gambar dibawah. Panah 
+menunjukkan parameter penukaran elemen yaitu elemen yang ditunjuk panah harus lebih besar atau sama dengan elemen yang menunjuk. 
+Bila tidak demikian, posisi kedua elemen akan ditukar. Pada iterasi pertama, dihasilkan deretan angka yang naik-turun secara berselingan. 
+Pada iterasi kedua dan ketiga, elemen yang ditukar diubah sehingga hasilnya adalah deretan angka naik-turun yang frekuensi naik-turunny adalah
+setengah dari iterasi pertama. Hal tersebut dilakukan berulang sampai seluruh elemen hanya naik saja, atau turun saja, dalam kata lain 
+sudah terurut menaik atau menurun. 
+
+![bitonic_sort](img/bitonic_sort.png)
+
+Solusi diatas memiliki kompleksitas sebesar ```O(N*(log N)^2)```. Kompleksitas tersebut dapat dioptimasi dengan solusi paralel. 
+Karena urutan penukaran elemen pada bitonic sort selalu sama diberikan ukuran elemen yang tetap, maka algoritma paralel dapat 
+diimplementasikan dengan mudah. Solusi paralel diterapkan pada operasi penukaran (compare). Contohnya, pada iterasi pertama
+di gambar terjadi 8 penukaran. Apabila dialokasikan 4 thread lalu menggunakan perintah ```#pragma omp parallel for```, maka 
+setiap thread akan mengeksekusi 2 penukaran pada iterasi pertama. Solusi yang saya gunakan adalah dengan menggunakan perintah 
+```#pragma omp parallel for num_threads(num_thread) shared(arr,j,k,N) private(i)``` persis sebelum melakukan iterasi untuk 
+melakukan compare dan exchange sehingga setiap thread akan mengerjakan compare dan exchange secara merata. Parameter ```shared(arr,j,k,N)``` 
+menunjukkan bahwa variabel tersebut digunakan oleh semua thread sedangkan parameter ```private(i)``` menunjukkan bahwa variabel i 
+dimiliki oleh masing-masing thread.
 
 ### Analisis Solusi
-
+Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat. Karena paralelisasi dilakukan pada iterasi 
+penukaran elemen (kompleksitasnya adalah ```O(N)```), maka kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
+```O(N/K)``` dengan K adalah jumlah thread yang digunakan, sehingga kompleksitas akhir algoritma menjadi ```O(N/K*(log N)^2)```. 
+Solusi ini sudah cukup baik, namun bisa ditingkatkan lagi apabila ditemukan cara paralelisasi yang lebih efektif 
+(misalnya dengan memparalelisasi looping pertama dan kedua). Cara lain adalah dengan merancang algoritma bitonic sort 
+yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array bukan kelipatan 2 (pada solusi yang saya gunakan masih 
+menggunakan elemen dummy). 
 
 ### Jumlah Thread
 Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* dengan masing-masing core memiliki 2 *logical core*. Apabila saya menggunakan thread lebih dari itu, performansi program tidak melebihi program yang menggunakan  4 thread. Hal tersebut demikian karena PC saya memiliki total 4 core sehingga apabila menggunakan thread lebih dari 4, 
