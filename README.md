@@ -1,20 +1,23 @@
 # OpenMP - Bitonic Sort
 IF3230 - Sistem Paralel dan Terdistribusi
 Erick Wijaya - 13515057
+
 ## Deskripsi Singkat
 
 ## Penggunaan Program
-1\. Lakukan kompilasi program dengan perintah ```make```.
-2\. Jalankan program dengan perintah ```./bitonic_sort n```, dengan ```n``` adalah ukuran array.
+1. Lakukan kompilasi program dengan perintah ```make```.
+2. Jalankan program dengan perintah ```./bitonic_sort n```, dengan ```n``` adalah ukuran array.
 
 ## Pembagian Tugas
 Tugas ini dikerjakan oleh Erick Wijaya (13515057). 
 
 ## Laporan Pengujian
 Pada bagian ini akan dijelaskan mengenai deskripsi solusi paralel yang digunakan, analisis solusi, jumlah thread, pengujian, dan analisis hasil uji. 
+
 ### Deskripsi Solusi Paralel
 
 ### Analisis Solusi
+
 
 ### Jumlah Thread
 Jumlah thread yang digunakan adalah 4 karena PC saya memiliki 2 *physical core* dengan masing-masing core memiliki 2 *logical core*. Apabila saya menggunakan thread lebih dari itu, performansi program tidak melebihi program yang menggunakan  4 thread. Hal tersebut demikian karena PC saya memiliki total 4 core sehingga apabila menggunakan thread lebih dari 4, 
@@ -23,7 +26,7 @@ Selain itu, berdasarkan pengujian yang saya lakukan, penambahan thread lebih dar
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian untuk bitonic sort serial dan paralel. 
 
-| Ukuran Array | Percobaan 1 (mikrosekon)    | Percobaan 2 (mikrosekon)    | Percobaan 3 (mikrosekon)    | Percobaan 4 (mikrosekon)    | Percobaan 5 (mikrosekon)    | Rata-Rata (mikrosekon)      |
+| *Ukuran Array* | *Percobaan 1 (mikrosekon)*    | *Percobaan 2 (mikrosekon)*    | *Percobaan 3 (mikrosekon)*    | *Percobaan 4 (mikrosekon)*    | Percobaan 5 (mikrosekon)    | *Rata-Rata (mikrosekon)*      |
 | ------------ | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
 | 5000         | 4154.920578 (**serial**) 4968.881607 (**paralel**)     | 4054.069519 (**serial**) 5530.118942 (**paralel**)    | 4467.010498 (**serial**) 2573.966980 (**paralel**)    | 4848.957062 (**serial**) 10330.915451 (**paralel**)   |  3962.993622 (**serial**) 3566.980362 (**paralel**)   | 4297.590256 (**serial**) 5394.172668 (**paralel**)    |
 | 50000        | 50214.052200 (**serial**) 37576.913834 (**paralel**)   | 56967.973709 (**serial**) 27436.971664 (**paralel**)   | 48700.094223 (**serial**) 26001.930237 (**paralel**)   | 51848.888397 (**serial**) 29010.057449 (**paralel**)   | 48896.074295 (**serial**) 30823.945999 (**paralel**)   | 51325.416565 (**serial**) 30169.963837 (**paralel**)   |
@@ -32,3 +35,4 @@ Berikut adalah tabel pengujian untuk bitonic sort serial dan paralel.
 | 400000       | 514862.060547 (**serial**) 277946.949005 (**paralel**) | 522362.947464 (**serial**) 257061.958313 (**paralel**) | 520067.930222 (**serial**) 287576.913834 (**paralel**) | 510907.888412 (**serial**) 275991.916656 (**paralel**) | 509989.976883 (**serial**) 264043.092728 (**paralel**) | 515638.160706 (**serial**) 272524.166107 (**paralel**) |
 
 ### Analisis Kinerja Serial dan Paralel
+
