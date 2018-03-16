@@ -1,0 +1,120 @@
+-----------------------------------------
+Fri Mar 16 18:29:25 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 26.941299
+[1] Serial wall clock time (microseconds) = 29.087067
+[2] Serial wall clock time (microseconds) = 26.941299
+[3] Serial wall clock time (microseconds) = 30.994415
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 32.901764
+[1] Parallel wall clock time (microseconds) = 31.948090
+[2] Parallel wall clock time (microseconds) = 30.040741
+[3] Parallel wall clock time (microseconds) = 30.040741
+-----------------------------------------
+Average Serial Time (microseconds): 59.723854
+Average Parallel Time (microseconds): 31.232834
+-----------------------------------------
+
+
+-----------------------------------------
+Fri Mar 16 18:29:53 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 29.087067
+[1] Serial wall clock time (microseconds) = 30.994415
+[2] Serial wall clock time (microseconds) = 27.894974
+[3] Serial wall clock time (microseconds) = 32.901764
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 34.093857
+[1] Parallel wall clock time (microseconds) = 34.093857
+[2] Parallel wall clock time (microseconds) = 30.994415
+[3] Parallel wall clock time (microseconds) = 30.040741
+-----------------------------------------
+Average Serial Time (microseconds): 62.525272
+Average Parallel Time (microseconds): 32.305717
+-----------------------------------------
+
+
+-----------------------------------------
+Fri Mar 16 18:30:50 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 31.948090
+[1] Serial wall clock time (microseconds) = 29.087067
+[2] Serial wall clock time (microseconds) = 27.894974
+[3] Serial wall clock time (microseconds) = 30.994415
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 32.901764
+[1] Parallel wall clock time (microseconds) = 36.001205
+[2] Parallel wall clock time (microseconds) = 34.093857
+[3] Parallel wall clock time (microseconds) = 35.047531
+-----------------------------------------
+Average Serial Time (microseconds): 64.492226
+Average Parallel Time (microseconds): 34.511089
+-----------------------------------------
+
+
+-----------------------------------------
+Fri Mar 16 18:30:55 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 27.894974
+[1] Serial wall clock time (microseconds) = 30.040741
+[2] Serial wall clock time (microseconds) = 29.087067
+[3] Serial wall clock time (microseconds) = 30.994415
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 34.093857
+[1] Parallel wall clock time (microseconds) = 35.047531
+[2] Parallel wall clock time (microseconds) = 30.994415
+[3] Parallel wall clock time (microseconds) = 30.994415
+-----------------------------------------
+Average Serial Time (microseconds): 62.286854
+Average Parallel Time (microseconds): 32.782555
+-----------------------------------------
+
+
+-----------------------------------------
+Fri Mar 16 18:31:26 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 25.987625
+[1] Serial wall clock time (microseconds) = 27.894974
+[2] Serial wall clock time (microseconds) = 25.987625
+[3] Serial wall clock time (microseconds) = 30.040741
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 30.994415
+[1] Parallel wall clock time (microseconds) = 31.948090
+[2] Parallel wall clock time (microseconds) = 30.994415
+[3] Parallel wall clock time (microseconds) = 27.894974
+-----------------------------------------
+Average Serial Time (microseconds): 27.477741
+Average Parallel Time (microseconds): 30.457973
+-----------------------------------------
+
+
+-----------------------------------------
+Fri Mar 16 18:31:34 2018
+Problem Size: 100
+Thread: 4
+-----------------------------------------
+[0] Serial wall clock time (microseconds) = 26.941299
+[1] Serial wall clock time (microseconds) = 26.941299
+[2] Serial wall clock time (microseconds) = 26.941299
+[3] Serial wall clock time (microseconds) = 29.087067
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 31.948090
+[1] Parallel wall clock time (microseconds) = 36.954880
+[2] Parallel wall clock time (microseconds) = 36.001205
+[3] Parallel wall clock time (microseconds) = 35.047531
+-----------------------------------------
+Average Serial Time (microseconds): 27.477741
+Average Parallel Time (microseconds): 34.987926
+-----------------------------------------
+
+
