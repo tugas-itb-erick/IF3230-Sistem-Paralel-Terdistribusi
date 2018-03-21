@@ -188,12 +188,10 @@ int main(int argc, char **argv) {
 
   if (rank == MASTER) {
     printf("-----------------------------------------\n");
-    printf("Average Serial Time (microseconds): %f\n", sum_serial/test_amount);
     printf("Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
     printf("-----------------------------------------\n\n\n");
 
     fprintf(log_file, "-----------------------------------------\n");
-    fprintf(log_file, "Average Serial Time (microseconds): %f\n", sum_serial/test_amount);
     fprintf(log_file, "Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
     fprintf(log_file, "-----------------------------------------\n\n\n");
     fclose(log_file);
