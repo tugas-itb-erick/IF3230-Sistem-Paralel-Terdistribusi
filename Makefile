@@ -1,5 +1,5 @@
 all: src/bitonic_sort.c
-	gcc -g -Wall -o bitonic_sort src/bitonic_sort.c -lm
+	mpicc src/bitonic_sort.c -o bitonic_sort -lm
 
 clean:
 	rm -rf bitonic_sort
