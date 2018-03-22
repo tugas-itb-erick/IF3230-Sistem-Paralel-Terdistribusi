@@ -63,7 +63,7 @@ Apabila yang ingin dikejar hanyalah *speedup* (tanpa memerhatikan efisiensi), pr
 memiliki *speedup* yang sedikit lebih tinggi dari program dengan 2 proses. 
 
 ### Pengukuran Kinerja (Tabel)
-Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel.
+Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan tabel *speedup* beserta efisiensinya.
 
 #### Serial (1 proses)
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Percobaan 4 (μs)** | **Percobaan 5 (μs)** | **Rata-Rata (μs)** |
@@ -87,21 +87,19 @@ Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel.
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Percobaan 4 (μs)** | **Percobaan 5 (μs)** | **Rata-Rata (μs)** |
 | ------------ | ------------------------ | -------------------- | -------------------- | -------------------- | -------------------- | ------------------ |
 | 5000   | 1594.066620    | 1003.980637    | 982.046127     | 989.913940     | 2291.917801    | 1372.385025   |
-| 50000  |    |    |    |    |    | 
-| 100000 |    |    |    |    |    | 
-| 200000 |   |   |   |   |   | 
-| 400000 |   |   |   |   |   | 
+| 50000  | 39314.985275   | 30795.097351   | 21363.019943   | 23847.103119   | 32182.931900   | 29500.627518  |
+| 100000 | 111895.084381  | 110778.083801  | 70276.975632   | 77461.957932   | 113548.040390  | 96792.028427  |
+| 200000 | 129167.079926  | 159974.098206  | 102111.101151  | 190342.903137  | 124057.054520  | 141130.447388 |
+| 400000 | 304891.109467  | 259758.949280  | 315741.062164  | 269983.053207  | 293365.001678  | 288747.835159 |
 
 #### Paralel (8 proses) 
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Percobaan 4 (μs)** | **Percobaan 5 (μs)** | **Rata-Rata (μs)** |
 | ------------ | ------------------------ | -------------------- | -------------------- | -------------------- | -------------------- | ------------------ |
-| 5000   |     |     |     |     |     | 
-| 50000  |    |    |    |    |    | 
-| 100000 |    |    |    |    |    | 
-| 200000 |   |   |   |   |   | 
-| 400000 |   |   |   |   |   | 
-
-Berikut adalah tabel speedup dan efisiensi dengan menggunakan 4 thread. 
+| 5000   | 2218.008041    | 2367.019653    | 2515.077591    | 2334.117889    | 2430.915833    | 2373.027801   |
+| 50000  | 38963.079453   | 54183.959961   | 38949.966431   | 33972.024918   | 53514.003754   | 43916.606903  |
+| 100000 | 50954.103470   | 120012.044907  | 104650.020599  | 101023.912430  | 117316.961288  | 98791.408539  |
+| 200000 | 144534.111023  | 103744.029999  | 102400.064468  | 102796.077728  | 104211.091995  | 111537.075043 |
+| 400000 | 201124.906540  | 244997.978210  | 247999.906540  | 270179.033279  | 268702.983856  | 246600.961685 |
 
 | **Ukuran Array** | **Speed Up** | **Efisiensi** |
 | ------------ | --- | --- |
