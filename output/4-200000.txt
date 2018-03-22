@@ -1,0 +1,15 @@
+-----------------------------------------
+Thu Mar 22 08:03:06 2018
+Problem Size: 200000
+Process: 4
+-----------------------------------------
+[0] Parallel wall clock time (microseconds) = 91988.086700
+[1] Parallel wall clock time (microseconds) = 89766.979218
+[2] Parallel wall clock time (microseconds) = 92963.933945
+[3] Parallel wall clock time (microseconds) = 89400.053024
+[4] Parallel wall clock time (microseconds) = 101454.973221
+-----------------------------------------
+Average Parallel Time (microseconds): 93114.805222
+-----------------------------------------
+
+
