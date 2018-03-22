@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
   int* arr;
   int i, j;
   int N, fakeN;
-  int t, test_amount = 3;
+  //int t, test_amount = 3;
   int num_thread;
   int rank;
 
@@ -54,12 +54,11 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     // pass
-  } else if (argc == 3 && atoi(argv[2]) > 0) {
-    test_amount = atoi(argv[2]);
+  // } else if (argc == 3 && atoi(argv[2]) > 0) {
+  //   test_amount = atoi(argv[2]);
   } else {
     if (rank == MASTER) {
       printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
-      printf("  where x is test amount (optional with default=3, must be greater than 0)\n");
     }
     MPI_Finalize();
     return 0;
@@ -89,12 +88,12 @@ int main(int argc, char **argv) {
     printf("%s", asctime(timeinfo));
     printf("Problem Size: %d\n", N);
     printf("Process: %d\n", num_thread);
-    printf("-----------------------------------------\n");
+    // printf("-----------------------------------------\n");
     fprintf(log_file, "-----------------------------------------\n");
     fprintf(log_file, "%s", asctime(timeinfo));
     fprintf(log_file, "Problem Size: %d\n", N);
     fprintf(log_file, "Process: %d\n", num_thread);
-    fprintf(log_file, "-----------------------------------------\n");
+    // fprintf(log_file, "-----------------------------------------\n");
   }
 
   // MPI_Barrier(MPI_COMM_WORLD);
@@ -124,7 +123,7 @@ int main(int argc, char **argv) {
   //   fprintf(log_file, "-----------------------------------------\n");
   // }
 
-  for (t = 0; t < test_amount; t++) {
+  // for (t = 0; t < test_amount; t++) {
     MPI_Barrier(MPI_COMM_WORLD);
 
     int* newArr;
@@ -173,26 +172,26 @@ int main(int argc, char **argv) {
     seq_time *= 1000000;
 
     if (rank == MASTER) {
-      printf("[%d] Parallel wall clock time (microseconds) = %f\n", t, seq_time);
-      fprintf(log_file, "[%d] Parallel wall clock time (microseconds) = %f\n", t, seq_time);
+      printf("Parallel wall clock time (microseconds) = %f\n", seq_time);
+      fprintf(log_file, "Parallel wall clock time (microseconds) = %f\n", seq_time);
 
-      if (t < test_amount - 1) {
+      // if (t < test_amount - 1) {
         writeToFile("data/output.txt", newArr, N);
-      }
+      // }
       
       test(newArr, fakeN);
       sum_parallel += seq_time;
       free(newArr);
     }
-  }
+  // }
 
   if (rank == MASTER) {
+    // printf("-----------------------------------------\n");
+    // printf("Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
     printf("-----------------------------------------\n");
-    printf("Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
-    printf("-----------------------------------------\n\n\n");
 
-    fprintf(log_file, "-----------------------------------------\n");
-    fprintf(log_file, "Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
+    // fprintf(log_file, "-----------------------------------------\n");
+    // fprintf(log_file, "Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
     fprintf(log_file, "-----------------------------------------\n\n\n");
     fclose(log_file);
   }
@@ -226,7 +225,7 @@ void test(int* arr, int n) {
     pass &= (arr[i-1] <= arr[i]);
   }
 
-  printf("    TEST %s\n",(pass) ? "PASSED" : "FAILED");
+  printf("TEST %s\n",(pass) ? "PASSED" : "FAILED");
 }
 
 void rng(int* arr, int n) {
