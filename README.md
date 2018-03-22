@@ -12,7 +12,7 @@ yang dibutuhkan untuk melakukan sort secara paralel.
 1. Lakukan kompilasi program dengan perintah ```make```. Pastikan sudah melakukan installasi OpenMPI sebelumnya. 
 2. Jalankan program dengan perintah ```mpirun -np p ./bitonic_sort n```, dengan ```n``` adalah ukuran array dan ```p``` adalah jumlah proses.
 3. Hasil array sebelum dan sesudah di-sort dapat dilihat pada file ```data/input.txt``` dan ```data/output.txt```
-4. Output waktu eksekusi serial dan paralel dapat dilihat pada file ```output/log.txt```
+4. Output waktu eksekusi beserta detilnya dapat dilihat pada file ```output/log.txt```
 
 ## Pembagian Tugas
 Tugas ini dikerjakan oleh Erick Wijaya (13515057). 
@@ -34,16 +34,22 @@ sudah terurut menaik atau menurun (tergantung parameter sort ascending atau desc
 
 Solusi diatas memiliki kompleksitas sebesar ```O(N*(log N)^2)```. Kompleksitas tersebut dapat dioptimasi dengan solusi paralel. 
 Karena urutan penukaran elemen pada bitonic sort selalu sama diberikan ukuran elemen yang tetap, maka algoritma paralel dapat 
-diimplementasikan dengan mudah. Solusi paralel diterapkan pada operasi penukaran (compare). Contohnya, pada iterasi pertama
-di gambar terjadi 8 penukaran. Apabila dialokasikan 4 thread lalu menggunakan perintah ```#pragma omp parallel for```, maka 
-setiap thread akan mengeksekusi 2 penukaran pada iterasi pertama. Solusi yang saya gunakan adalah dengan menggunakan perintah 
-```#pragma omp parallel for num_threads(num_thread) shared(arr,j,k,N) private(i)``` persis sebelum melakukan iterasi untuk 
-melakukan compare dan exchange sehingga setiap thread akan mengerjakan compare dan exchange secara merata. Parameter ```shared(arr,j,k,N)``` 
-menunjukkan bahwa variabel tersebut digunakan oleh semua thread sedangkan parameter ```private(i)``` menunjukkan bahwa variabel i 
-dimiliki oleh masing-masing thread.
+diimplementasikan dengan mudah. 
+Solsi paralel diterapkan dengan membagi array menjadi beberapa array kecil dengan ```MPI_Scatter``` sesuai dengan jumlah prosesnya. 
+Masing-masing proses akan melakukan bitonic sort terhadap array kecil tersebut. Misalnya array memiliki ukuran 5000, apabila digunakan 
+2 proses maka array dibagi menjadi 2 array berukuran 2500 sehingga masing-masing proses melakukan bitonic sort dengan ukuran 2500. 
+Setelah semua proses melakukan bitonic sort, masing-masing proses bersebelahan melakukan komunikasi dengan ```MPI_Sendrecv``` untuk 
+menggabungkan kedua array menjadi satu array gabungan bitonic sequence. Misalnya ada 4 proses, maka proses 0 dan 1 melakukan komunikasi 
+sehingga array pada proses 0 dan 1 terurut bila digabung. Begitu pula dengan array pada proses 2 dan 3. Setelah itu, hasil array proses 0,1 
+dan proses 2,3 dibandingkan untuk membentuk array dari proses 1,2,3,4 yang terurut sehingga seluruh array-array kecil sudah terurut bila 
+digabungkan. Untuk menggabungkan semua array-array kecil, digunakan perintah ```MPI_Gather``` sehingga diperoleh sebuah array gabungan 
+yang sudah terurut. Perintah ```MPI_Barrier``` dipanggil sebelum gather untuk menghindari penggabungan array kecil yang belum selesai 
+diproses. Berikut adalah gambar yang meringkas penjelasan solusi ini. 
+
+![bitonic_sort_MPI](img/bitonic_MPI.png)
 
 ### Analisis Solusi
-Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat dengan speedup sekitar 2 kali. 
+Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat dengan speedup hampir 2 kali. 
 
 Karena paralelisasi dilakukan pada iterasi 
 penukaran elemen (kompleksitasnya adalah ```O(N)```), kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
@@ -58,9 +64,6 @@ menggunakan elemen dummy).
 ### Jumlah Thread
 Jumlah thread/proses yang digunakan adalah 2. Angka 2 dipilih karena berdasarkan hasil percobaan, program dengan 2 buah 
 proses memiliki efisiensi lebih tinggi ketimbang dengan program yang memiliki 4 atau 8 proses atau lebih. 
-
-Apabila yang ingin dikejar hanyalah *speedup* (tanpa memerhatikan efisiensi), program dengan 4 proses lebih baik karena 
-memiliki *speedup* yang sedikit lebih tinggi dari program dengan 2 proses. 
 
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan tabel *speedup* beserta efisiensinya.
@@ -126,15 +129,10 @@ Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan 
 | 400000           |    1.503x    |   18.786%    |
 
 ### Analisis Kinerja Serial dan Paralel
-Berdasarkan pengukuran kinerja pada poin sebelumnya, terlihat bahwa kinerja program paralel lebih cepat daripada serial, 
-kecuali untuk kasus ukuran array 5000. Pada kasus array 5000, program serial lebih cepat karena program paralel membutuhkan waktu 
-tambahan untuk melakukan context switching. Semakin besar jumlah thread, semakin banyak context switching yang terjadi. Akan tetapi, 
-apabila menggunakan 2 thread, program paralel cenderung lebih cepat karena jumlah context switching lebih kecil. Namun, untuk program ini
-saya tetap menggunakan 4 thread karena untuk kasus array yang 
-berukuran lebih besar, bitonic sort dengan 4 thread bekerja lebih cepat ketimbang dengan 2 thread.
-
-Apabila dilihat dari tabel, efisiensi maupun speedup kinerja bitonic sort paralel dengan serial menjadi cenderung semakin tinggi. Hal tersebut demikian karena waktu untuk context switching menjadi tidak signifikan apabila 
-ukuran permasalahan (array) lebih besar. Kesimpulannya, bitonic sort paralel memiliki performa yang lebih baik daripada 
-bitonic sort serial kecuali untuk kasus persoalan yang kecil. Semakin besar jumlah thread, semakin cepat performa program paralel 
-tetapi dibutuhkan waktu context switching yang bisa menjadi signifikan untuk kasus persoalan yang kecil. Jumlah thread yang melebihi 
-jumlah core tidak akan membuat program paralel menjadi semakin cepat dari program dengan jumlah thread sejumlah core. 
+Berdasarkan hasil pengukuran kinerja diatas, terlihat bahwa kinerja program paralel lebih cepat daripada serial untuk semua kasus uji. 
+Hasil diatas menunjukkan bahwa program dengan 2 proses memiliki *speedup* dan efisiensi tertinggi. Hal tersebut demikian karena 
+pada kasus 2 proses, *overhead* lebih sedikit karena lebih sedikit context switching dan komunikasi antar proses. 
+Pada kasus 4 proses maupun 8 proses, terkadang *speedup* bisa lebih tinggi dari kasus 2 proses tetapi rata-rata *speedup*-nya lebih 
+rendah serta efisiensinya jauh lebih rendah dari kasus 2 proses. Efisiensi menjadi lebih kecil karena pada kasus banyak proses, lebih 
+banyak resource yang digunakan. Kesimpulannya program yang saya buat paling efektif dilakukan dengan 2 proses karena efisiensinya paling 
+tinggi (mencapai 80~90%). 
