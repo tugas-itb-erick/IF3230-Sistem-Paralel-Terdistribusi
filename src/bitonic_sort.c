@@ -54,8 +54,6 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     // pass
-  // } else if (argc == 3 && atoi(argv[2]) > 0) {
-  //   test_amount = atoi(argv[2]);
   } else {
     if (rank == MASTER) {
       printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
@@ -88,110 +86,73 @@ int main(int argc, char **argv) {
     printf("%s", asctime(timeinfo));
     printf("Problem Size: %d\n", N);
     printf("Process: %d\n", num_thread);
-    // printf("-----------------------------------------\n");
     fprintf(log_file, "-----------------------------------------\n");
     fprintf(log_file, "%s", asctime(timeinfo));
     fprintf(log_file, "Problem Size: %d\n", N);
     fprintf(log_file, "Process: %d\n", num_thread);
-    // fprintf(log_file, "-----------------------------------------\n");
   }
 
-  // MPI_Barrier(MPI_COMM_WORLD);
-  // if (rank == MASTER) {
-  //   for (t = 0; t < test_amount; t++) {
-  //     int* newArr;
-  //     newArr = (int *) malloc(fakeN * sizeof(int));
-  //     memcpy(newArr, arr, fakeN);
+  MPI_Barrier(MPI_COMM_WORLD);
 
-  //     // [Start Time]
-  //     gettimeofday (&startwtime, NULL);
-  //     bitonicSortSeq(newArr, fakeN);
-  //     gettimeofday (&endwtime, NULL);
-  //     // [End Time]
+  int* newArr;
+  newArr = (int *) malloc(fakeN * sizeof(int));
+  memcpy(newArr, arr, fakeN);
 
-  //     seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
-  //             + endwtime.tv_sec - startwtime.tv_sec);
-  //     seq_time *= 1000000;
-  //     printf("[%d] Serial wall clock time (microseconds) = %f\n", t, seq_time);
-  //     fprintf(log_file, "[%d] Serial wall clock time (microseconds) = %f\n", t, seq_time);
-      
-  //     test(newArr, fakeN);
-  //     sum_serial += seq_time;
-  //     free(newArr);
-  //   }
-  //   printf("-----------------------------------------\n");
-  //   fprintf(log_file, "-----------------------------------------\n");
-  // }
-
-  // for (t = 0; t < test_amount; t++) {
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    int* newArr;
-    newArr = (int *) malloc(fakeN * sizeof(int));
-    memcpy(newArr, arr, fakeN);
-
-    int smallSize = fakeN / num_thread;
-    int* smallArr;
-    smallArr = (int *) malloc(smallSize * sizeof(int));
+  int smallSize = fakeN / num_thread;
+  int* smallArr;
+  smallArr = (int *) malloc(smallSize * sizeof(int));
 
 
-    int dimens = (int)(log2(num_thread));
+  int dimens = (int)(log2(num_thread));
 
-    MPI_Barrier(MPI_COMM_WORLD);
-    // [Start Time]
-    gettimeofday (&startwtime, NULL);
+  MPI_Barrier(MPI_COMM_WORLD);
+  // [Start Time]
+  gettimeofday (&startwtime, NULL);
 
-    MPI_Scatter(newArr, smallSize, MPI_INT, smallArr, smallSize, MPI_INT, MASTER, MPI_COMM_WORLD);
-    MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Scatter(newArr, smallSize, MPI_INT, smallArr, smallSize, MPI_INT, MASTER, MPI_COMM_WORLD);
+  MPI_Barrier(MPI_COMM_WORLD);
     
-    // All process run serial bitonic sort in scattered array
-    bitonicSortSeq(smallArr, smallSize);
+  // All process run serial bitonic sort in scattered array
+  bitonicSortSeq(smallArr, smallSize);
 
-    // compare result with other processes
-    for (i = 0; i < dimens; i++) {
-      for (j = i; j >= 0; j--) {
-        if (((rank >> (i + 1)) % 2 == 0 && (rank >> j) % 2 == 0) || ((rank >> (i + 1)) % 2 != 0 && (rank >> j) % 2 != 0)) {
-          compareLow(smallArr, smallSize, rank, j);
-        } else {
-          compareHigh(smallArr, smallSize, rank, j);
-        }
+  // compare result with other processes
+  for (i = 0; i < dimens; i++) {
+    for (j = i; j >= 0; j--) {
+      if (((rank >> (i + 1)) % 2 == 0 && (rank >> j) % 2 == 0) || ((rank >> (i + 1)) % 2 != 0 && (rank >> j) % 2 != 0)) {
+        compareLow(smallArr, smallSize, rank, j);
+      } else {
+        compareHigh(smallArr, smallSize, rank, j);
       }
     }
+  }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Barrier(MPI_COMM_WORLD);
 
-    // Merge result
-    MPI_Gather(smallArr, smallSize, MPI_INT, newArr, smallSize, MPI_INT, MASTER, MPI_COMM_WORLD);
+  // Merge result
+  MPI_Gather(smallArr, smallSize, MPI_INT, newArr, smallSize, MPI_INT, MASTER, MPI_COMM_WORLD);
 
-    gettimeofday (&endwtime, NULL);
-    // [End Time]
+  gettimeofday (&endwtime, NULL);
+  // [End Time]
 
 
-    seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
-            + endwtime.tv_sec - startwtime.tv_sec);
-    seq_time *= 1000000;
-
-    if (rank == MASTER) {
-      printf("Parallel wall clock time (microseconds) = %f\n", seq_time);
-      fprintf(log_file, "Parallel wall clock time (microseconds) = %f\n", seq_time);
-
-      // if (t < test_amount - 1) {
-        writeToFile("data/output.txt", newArr, N);
-      // }
-      
-      test(newArr, fakeN);
-      sum_parallel += seq_time;
-      free(newArr);
-    }
-  // }
+  seq_time = (double)((endwtime.tv_usec - startwtime.tv_usec)/1.0e6
+          + endwtime.tv_sec - startwtime.tv_sec);
+  seq_time *= 1000000;
 
   if (rank == MASTER) {
-    // printf("-----------------------------------------\n");
-    // printf("Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
-    printf("-----------------------------------------\n");
+    printf("Parallel wall clock time (microseconds) = %f\n", seq_time);
+    fprintf(log_file, "Parallel wall clock time (microseconds) = %f\n", seq_time);
 
-    // fprintf(log_file, "-----------------------------------------\n");
-    // fprintf(log_file, "Average Parallel Time (microseconds): %f\n", sum_parallel/test_amount);
+    writeToFile("data/output.txt", newArr, N);
+      
+    test(newArr, fakeN);
+    sum_parallel += seq_time;
+    free(newArr);
+  }
+  
+
+  if (rank == MASTER) {
+    printf("-----------------------------------------\n");
     fprintf(log_file, "-----------------------------------------\n\n\n");
     fclose(log_file);
   }
