@@ -1,158 +1,158 @@
 -----------------------------------------
-Thu Mar 22 08:35:40 2018
+Thu Mar 22 10:10:26 2018
 Problem Size: 5000
-Process: 2
-Parallel wall clock time (microseconds) = 1544.952393
+Process: Serial
+Serial wall clock time (microseconds) = 2779.006958
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:45 2018
+Thu Mar 22 10:10:26 2018
 Problem Size: 5000
-Process: 2
-Parallel wall clock time (microseconds) = 1544.952393
+Process: Serial
+Serial wall clock time (microseconds) = 2769.947052
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:47 2018
+Thu Mar 22 10:10:28 2018
 Problem Size: 5000
-Process: 2
-Parallel wall clock time (microseconds) = 1554.012299
+Process: Serial
+Serial wall clock time (microseconds) = 2842.903137
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:49 2018
+Thu Mar 22 10:10:28 2018
 Problem Size: 5000
-Process: 2
-Parallel wall clock time (microseconds) = 1549.959183
+Process: Serial
+Serial wall clock time (microseconds) = 2811.908722
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:50 2018
+Thu Mar 22 10:10:29 2018
 Problem Size: 5000
-Process: 2
-Parallel wall clock time (microseconds) = 1544.952393
+Process: Serial
+Serial wall clock time (microseconds) = 2795.934677
 -----------------------------------------
 
 
 -----------------------------------------
-Thu Mar 22 08:35:55 2018
+Thu Mar 22 10:10:31 2018
 Problem Size: 50000
-Process: 2
-Parallel wall clock time (microseconds) = 27383.089066
+Process: Serial
+Serial wall clock time (microseconds) = 44410.943985
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:56 2018
+Thu Mar 22 10:10:32 2018
 Problem Size: 50000
-Process: 2
-Parallel wall clock time (microseconds) = 20334.005356
+Process: Serial
+Serial wall clock time (microseconds) = 43387.889862
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:35:59 2018
+Thu Mar 22 10:10:33 2018
 Problem Size: 50000
-Process: 2
-Parallel wall clock time (microseconds) = 30303.001404
+Process: Serial
+Serial wall clock time (microseconds) = 47386.884689
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:01 2018
+Thu Mar 22 10:10:34 2018
 Problem Size: 50000
-Process: 2
-Parallel wall clock time (microseconds) = 30339.002609
+Process: Serial
+Serial wall clock time (microseconds) = 48340.082169
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:02 2018
+Thu Mar 22 10:10:35 2018
 Problem Size: 50000
-Process: 2
-Parallel wall clock time (microseconds) = 18886.089325
+Process: Serial
+Serial wall clock time (microseconds) = 48374.891281
 -----------------------------------------
 
 
 -----------------------------------------
-Thu Mar 22 08:36:07 2018
+Thu Mar 22 10:10:40 2018
 Problem Size: 100000
-Process: 2
-Parallel wall clock time (microseconds) = 69988.012314
+Process: Serial
+Serial wall clock time (microseconds) = 101613.044739
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:08 2018
+Thu Mar 22 10:10:41 2018
 Problem Size: 100000
-Process: 2
-Parallel wall clock time (microseconds) = 57765.007019
+Process: Serial
+Serial wall clock time (microseconds) = 107417.106628
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:11 2018
+Thu Mar 22 10:10:43 2018
 Problem Size: 100000
-Process: 2
-Parallel wall clock time (microseconds) = 59691.905975
+Process: Serial
+Serial wall clock time (microseconds) = 108871.936798
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:12 2018
+Thu Mar 22 10:10:45 2018
 Problem Size: 100000
-Process: 2
-Parallel wall clock time (microseconds) = 44879.913330
+Process: Serial
+Serial wall clock time (microseconds) = 107506.990433
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:13 2018
+Thu Mar 22 10:10:46 2018
 Problem Size: 100000
-Process: 2
-Parallel wall clock time (microseconds) = 59796.094894
+Process: Serial
+Serial wall clock time (microseconds) = 92660.903931
 -----------------------------------------
 
 
 -----------------------------------------
-Thu Mar 22 08:36:16 2018
+Thu Mar 22 10:10:50 2018
 Problem Size: 200000
-Process: 2
-Parallel wall clock time (microseconds) = 100512.981415
+Process: Serial
+Serial wall clock time (microseconds) = 194581.031799
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:18 2018
+Thu Mar 22 10:10:53 2018
 Problem Size: 200000
-Process: 2
-Parallel wall clock time (microseconds) = 130935.907364
+Process: Serial
+Serial wall clock time (microseconds) = 197408.914566
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:19 2018
+Thu Mar 22 10:10:56 2018
 Problem Size: 200000
-Process: 2
-Parallel wall clock time (microseconds) = 136426.925659
+Process: Serial
+Serial wall clock time (microseconds) = 199373.006821
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:21 2018
+Thu Mar 22 10:10:56 2018
 Problem Size: 200000
-Process: 2
-Parallel wall clock time (microseconds) = 118865.966797
+Process: Serial
+Serial wall clock time (microseconds) = 192059.040070
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:22 2018
+Thu Mar 22 10:10:59 2018
 Problem Size: 200000
-Process: 2
-Parallel wall clock time (microseconds) = 113991.022110
+Process: Serial
+Serial wall clock time (microseconds) = 196392.059326
 -----------------------------------------
 
 
 -----------------------------------------
-Thu Mar 22 10:12:51 2018
+Thu Mar 22 10:11:11 2018
 Problem Size: 400000
-Process: 2
-Parallel wall clock time (microseconds) = 205804.109573
+Process: Serial
+Serial wall clock time (microseconds) = 366327.047348
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 10:12:43 2018
+Thu Mar 22 10:11:12 2018
 Problem Size: 400000
-Process: 2
-Parallel wall clock time (microseconds) = 223143.100739
+Process: Serial
+Serial wall clock time (microseconds) = 377748.012543
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:36:31 2018
+Thu Mar 22 10:11:16 2018
 Problem Size: 400000
-Process: 2
-Parallel wall clock time (microseconds) = 253459.930420
+Process: Serial
+Serial wall clock time (microseconds) = 372205.018997
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 10:12:49 2018
+Thu Mar 22 10:11:16 2018
 Problem Size: 400000
-Process: 2
-Parallel wall clock time (microseconds) = 247253.894806
+Process: Serial
+Serial wall clock time (microseconds) = 371944.904327
 -----------------------------------------
 -----------------------------------------
-Thu Mar 22 08:37:06 2018
+Thu Mar 22 10:11:17 2018
 Problem Size: 400000
-Process: 2
-Parallel wall clock time (microseconds) = 218801.975250
+Process: Serial
+Serial wall clock time (microseconds) = 364811.897278
 -----------------------------------------
