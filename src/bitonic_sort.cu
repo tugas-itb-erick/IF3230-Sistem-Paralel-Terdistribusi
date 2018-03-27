@@ -13,6 +13,7 @@
 const int ASCENDING  = 1;
 const int DESCENDING = 0;
 const int MAX_INT = 2147483647;
+const int THREADS = 4;
 
 void init(int* arr, int n);
 void rng(int* arr, int n);
@@ -40,8 +41,13 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     // pass
-  } else {
-    printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
+    num_thread = THREADS;
+  }
+  else if (argc == 3) {
+    num_thread = atoi(argv[2]);
+  }
+  else {
+    printf("Usage: %s n x\n  where n is problem size and p is thread count\n", argv[0]);
     return 0;
   }
   
@@ -77,16 +83,10 @@ int main(int argc, char **argv) {
   newArr = (int *) malloc(fakeN * sizeof(int));
   memcpy(newArr, arr, fakeN);
 
-  int smallSize = fakeN / num_thread;
-  int* smallArr;
-  smallArr = (int *) malloc(smallSize * sizeof(int));
-
-
-
   // [Start Time]
   gettimeofday (&startwtime, NULL);
 
-  bitonicSortSeq(smallArr, smallSize);
+  bitonicSortSeq(newArr, fakeN);
 
   gettimeofday (&endwtime, NULL);
   // [End Time]
