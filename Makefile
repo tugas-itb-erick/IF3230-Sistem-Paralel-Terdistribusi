@@ -1,4 +1,4 @@
-all: src/bitonic_sort.c
+all: src/bitonic_sort.cu src/bitonic_sort_serial.c
 	nvcc src/bitonic_sort.cu -o bitonic_sort -lm
 	gcc src/bitonic_sort_serial.c -o bitonic_sort_serial -lm
 
