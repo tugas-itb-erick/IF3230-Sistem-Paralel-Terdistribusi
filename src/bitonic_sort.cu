@@ -58,7 +58,6 @@ __global__ void bitonicSortStep(int* arr, int j, int k) {
 /** the main program **/ 
 int main(int argc, char **argv) {
   int* arr;
-  int i, j;
   int N, fakeN;
   int num_thread;
 
@@ -108,7 +107,7 @@ int main(int argc, char **argv) {
   fprintf(log_file, "-----------------------------------------\n");
   fprintf(log_file, "%s", asctime(timeinfo));
   fprintf(log_file, "Problem Size: %d\n", N);
-  fprintf(log_file, "THREADS x BLOCKS: %d x %d\n", THREAD, BLOCKS);
+  fprintf(log_file, "Process: %d\n", num_thread);
 
   int* newArr;
   newArr = (int *) malloc(fakeN * sizeof(int));
@@ -117,7 +116,7 @@ int main(int argc, char **argv) {
   // [Start Time]
   gettimeofday (&startwtime, NULL);
 
-  parBitonicSort(newArr, fakeN);
+  parBitonicSort(newArr);
 
   gettimeofday (&endwtime, NULL);
   // [End Time]
@@ -195,7 +194,7 @@ void compare(int* arr, int i, int j, int dir) {
 }
 
 void parBitonicSort(int* arr) {
-  float *arrValues;
+  int *arrValues;
   size_t size = NUM_VALS * sizeof(int);
 
   cudaMalloc((void**) &arrValues, size);
