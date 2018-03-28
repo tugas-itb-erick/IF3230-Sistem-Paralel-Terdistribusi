@@ -10,8 +10,6 @@
 #include <string.h>
 #include <math.h>
 
-const int ASCENDING  = 1;
-const int DESCENDING = 0;
 const int MAX_INT = 2147483647;
 
 int THREADS;
@@ -62,6 +60,7 @@ int main(int argc, char **argv) {
   int* arr;
   int i, j;
   int N, fakeN;
+  int num_thread;
 
   struct timeval startwtime, endwtime;
   double seq_time;
@@ -70,16 +69,19 @@ int main(int argc, char **argv) {
   double sum_parallel = 0;
 
   if (argc == 2) {
-    // pass
+    num_thread = 256;
+  }
+  else if (argc == 3) {
+    num_thread = atoi(argv[2]);
   }
   else {
-    printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
+    printf("Usage: %s n x\n  where n is problem size and p is thread count (optional)\n", argv[0]);
     return 0;
   }
 
-  THREADS = 2*2*2*2*2*2; // 2^3n
-  BLOCKS = 2*2*2*2*2*2*2*2*2*2; // 2^5n
-  NUM_VALS = THREADS*BLOCKS;
+  BLOCKS = 256;
+  THREADS = num_thread / BLOCKS;
+  NUM_VALS = num_thread;
  
   // Initialize arr
   N = atoi(argv[1]);
@@ -197,7 +199,7 @@ void parBitonicSort(int* arr) {
   size_t size = NUM_VALS * sizeof(int);
 
   cudaMalloc((void**) &arrValues, size);
-  cudaMemcpy(arrValues, values, size, cudaMemcpyHostToDevice);
+  cudaMemcpy(arrValues, arr, size, cudaMemcpyHostToDevice);
 
   dim3 blocks(BLOCKS, 1);    /* Number of blocks   */
   dim3 threads(THREADS, 1);  /* Number of threads  */
@@ -210,7 +212,7 @@ void parBitonicSort(int* arr) {
       bitonicSortStep<<<blocks, threads>>>(arrValues, j, k);
     }
   }
-  cudaMemcpy(values, arrValues, size, cudaMemcpyDeviceToHost);
+  cudaMemcpy(arr, arrValues, size, cudaMemcpyDeviceToHost);
   cudaFree(arrValues);
 }
 
