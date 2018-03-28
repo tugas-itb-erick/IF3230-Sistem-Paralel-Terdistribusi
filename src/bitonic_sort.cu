@@ -78,8 +78,8 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  BLOCKS = 256;
-  THREADS = num_thread / BLOCKS;
+  THREADS = 256;
+  BLOCKS = num_thread / THREADS;
   NUM_VALS = num_thread;
  
   // Initialize arr
