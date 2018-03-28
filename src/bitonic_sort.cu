@@ -13,7 +13,10 @@
 const int ASCENDING  = 1;
 const int DESCENDING = 0;
 const int MAX_INT = 2147483647;
-const int THREADS = 4;
+
+int THREADS;
+int BLOCKS;
+int NUM_VALS;
 
 void init(int* arr, int n);
 void rng(int* arr, int n);
@@ -21,17 +24,44 @@ void print(int* arr);
 void test(int* arr, int n);
 void swap(int* a, int* b);
 void compare(int* arr, int i, int j, int dir);
-void bitonicSortSeq(int* arr, int n);
+void parBitonicSort(int* arr);
 
 int nearestPowerOfTwo(int x);
 void writeToFile(char* filename, int* arr, int n);
+
+__global__ void bitonicSortStep(int* arr, int j, int k) {
+  unsigned int i, ixj; /* Sorting partners: i and ixj */
+  i = threadIdx.x + blockDim.x * blockIdx.x;
+  ixj = i^j;
+
+  /* The threads with the lowest ids sort the array. */
+  if ((ixj)>i) {
+    if ((i&k)==0) {
+      /* Sort ascending */
+      if (arr[i]>arr[ixj]) {
+        /* exchange(i,ixj); */
+        int temp = arr[i];
+        arr[i] = arr[ixj];
+        arr[ixj] = temp;
+      }
+    }
+    if ((i&k)!=0) {
+      /* Sort descending */
+      if (arr[i]<arr[ixj]) {
+        /* exchange(i,ixj); */
+        int temp = arr[i];
+        arr[i] = arr[ixj];
+        arr[ixj] = temp;
+      }
+    }
+  }
+}
 
 /** the main program **/ 
 int main(int argc, char **argv) {
   int* arr;
   int i, j;
   int N, fakeN;
-  int num_thread;
 
   struct timeval startwtime, endwtime;
   double seq_time;
@@ -41,16 +71,15 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     // pass
-    num_thread = THREADS;
-  }
-  else if (argc == 3) {
-    num_thread = atoi(argv[2]);
   }
   else {
-    printf("Usage: %s n x\n  where n is problem size and p is thread count\n", argv[0]);
+    printf("Usage: %s n x\n  where n is problem size\n", argv[0]);
     return 0;
   }
-  
+
+  THREADS = 2*2*2*2*2*2; // 2^3n
+  BLOCKS = 2*2*2*2*2*2*2*2*2*2; // 2^5n
+  NUM_VALS = THREADS*BLOCKS;
  
   // Initialize arr
   N = atoi(argv[1]);
@@ -77,7 +106,7 @@ int main(int argc, char **argv) {
   fprintf(log_file, "-----------------------------------------\n");
   fprintf(log_file, "%s", asctime(timeinfo));
   fprintf(log_file, "Problem Size: %d\n", N);
-  fprintf(log_file, "Process: %d\n", num_thread);
+  fprintf(log_file, "THREADS x BLOCKS: %d x %d\n", THREAD, BLOCKS);
 
   int* newArr;
   newArr = (int *) malloc(fakeN * sizeof(int));
@@ -86,7 +115,7 @@ int main(int argc, char **argv) {
   // [Start Time]
   gettimeofday (&startwtime, NULL);
 
-  bitonicSortSeq(newArr, fakeN);
+  parBitonicSort(newArr, fakeN);
 
   gettimeofday (&endwtime, NULL);
   // [End Time]
@@ -163,22 +192,26 @@ void compare(int* arr, int i, int j, int dir) {
     swap(&(arr[i]), &(arr[j]));
 }
 
-void bitonicSortSeq(int* arr, int n) {
-  int i,j,k;
-  
-  for (k=2; k<=n; k=2*k) {
+void parBitonicSort(int* arr) {
+  float *arrValues;
+  size_t size = NUM_VALS * sizeof(int);
+
+  cudaMalloc((void**) &arrValues, size);
+  cudaMemcpy(arrValues, values, size, cudaMemcpyHostToDevice);
+
+  dim3 blocks(BLOCKS, 1);    /* Number of blocks   */
+  dim3 threads(THREADS, 1);  /* Number of threads  */
+
+  int j, k;
+  /* Major step */
+  for (k = 2; k <= NUM_VALS; k <<= 1) {
+    /* Minor step */
     for (j=k>>1; j>0; j=j>>1) {
-      for (i=0; i<n; i++) {
-	      int ij=i^j;
-        if ((ij) > i) {
-          if ((i&k) == 0 && arr[i] > arr[ij]) 
-            swap(&(arr[i]), &(arr[ij]));
-          if ((i&k) != 0 && arr[i] < arr[ij])
-            swap(&(arr[i]), &(arr[ij]));
-        }
-      }
+      bitonicSortStep<<<blocks, threads>>>(arrValues, j, k);
     }
   }
+  cudaMemcpy(values, arrValues, size, cudaMemcpyDeviceToHost);
+  cudaFree(arrValues);
 }
 
 int nearestPowerOfTwo(int x) {
