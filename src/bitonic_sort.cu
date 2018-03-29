@@ -68,26 +68,26 @@ int main(int argc, char **argv) {
   double sum_parallel = 0;
 
   if (argc == 2) {
-    num_thread = 256;
+    THREADS = 512;
   }
   else if (argc == 3) {
-    num_thread = atoi(argv[2]);
+    THREADS = atoi(argv[2]);
   }
   else {
-    printf("Usage: %s n x\n  where n is problem size and p is thread count (optional)\n", argv[0]);
+    printf("Usage: %s n x\n  where n is problem size and p is thread count per blocks (optional)\n", argv[0]);
     return 0;
   }
 
-  THREADS = 256;
-  BLOCKS = num_thread / THREADS;
-  NUM_VALS = num_thread;
- 
   // Initialize arr
   N = atoi(argv[1]);
   fakeN = nearestPowerOfTwo(N);
   arr = (int *) malloc(fakeN * sizeof(int));
   init(arr, fakeN);
   rng(arr, N);
+
+
+  BLOCKS = fakeN / THREADS;
+  NUM_VALS = BLOCKS * THREADS;
 
   writeToFile("data/input.txt", arr, N);
   log_file = fopen("output/log.txt", "a");
@@ -103,11 +103,11 @@ int main(int argc, char **argv) {
   printf("-----------------------------------------\n");
   printf("%s", asctime(timeinfo));
   printf("Problem Size: %d\n", N);
-  printf("Process: %d\n", num_thread);
+  printf("Block x Thread: %d x %d\n", BLOCKS, THREADS);
   fprintf(log_file, "-----------------------------------------\n");
   fprintf(log_file, "%s", asctime(timeinfo));
   fprintf(log_file, "Problem Size: %d\n", N);
-  fprintf(log_file, "Process: %d\n", num_thread);
+  fprintf(log_file, "Block x Thread: %d x %d\n", BLOCKS, THREADS);
 
   int* newArr;
   newArr = (int *) malloc(fakeN * sizeof(int));
