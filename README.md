@@ -37,29 +37,22 @@ Solusi diatas memiliki kompleksitas sebesar ```O(N*(log N)^2)```. Kompleksitas t
 Karena urutan penukaran elemen pada bitonic sort selalu sama diberikan ukuran elemen yang tetap, maka algoritma paralel dapat 
 diimplementasikan dengan mudah. 
 
-Solusi paralel diterapkan dengan membagi array menjadi beberapa array kecil dengan ```MPI_Scatter``` sesuai dengan jumlah prosesnya. 
-Masing-masing proses akan melakukan bitonic sort terhadap array kecil tersebut. Misalnya array memiliki ukuran 5000, apabila digunakan 
-2 proses maka array dibagi menjadi 2 array berukuran 2500 sehingga masing-masing proses melakukan bitonic sort dengan ukuran 2500. 
-Setelah semua proses melakukan bitonic sort, masing-masing proses bersebelahan melakukan komunikasi dengan ```MPI_Sendrecv``` untuk 
-menggabungkan kedua array menjadi satu array gabungan bitonic sequence. Misalnya ada 4 proses, maka proses 0 dan 1 melakukan komunikasi 
-sehingga array pada proses 0 dan 1 terurut bila digabung. Begitu pula dengan array pada proses 2 dan 3. Setelah itu, hasil array proses 0,1 
-dan proses 2,3 dibandingkan untuk membentuk array dari proses 1,2,3,4 yang terurut sehingga seluruh array-array kecil sudah terurut bila 
-digabungkan. Untuk menggabungkan semua array-array kecil, digunakan perintah ```MPI_Gather``` sehingga diperoleh sebuah array gabungan 
-yang sudah terurut. Perintah ```MPI_Barrier``` dipanggil sebelum gather untuk menghindari penggabungan array kecil yang belum selesai 
-diproses. 
+Solusi paralel diterapkan dengan mengalokasikan proses sejumlah dengan ukuran array dengan menggunakan perintah ```cudaMalloc``` dan ```cudaMemcpy```. Masing-masing proses berperan untuk melakukan perbandingan 
+dan penukaran elemen. Proses tersebut dibuat pada setiap iterasi dan mengalokasikan jumlah blocks dan threads dengan memanggil ```bitonicSortStep<<<blocks, threads>>>```. 
+Setelah seluruh iterasi selesai, hasil pengurutan disalin ke array dengan ```cudaMemcpy``` dan didealokasi dengan perintah ```cudaFree```. 
 
 ### Analisis Solusi
-Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort menjadi lebih cepat dengan speedup hampir ```x``` kali. 
+Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort dapat mencapai *speedup* sebesar 18x untuk kasus ukuran array 8 juta.  
 
-Karena paralelisasi dilakukan pada iterasi 
+Karena paralelisasi dilakukan pada setiap iterasi 
 penukaran elemen (kompleksitasnya adalah ```O(N)```), kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
-```O(N/K)``` dengan K adalah jumlah thread yang digunakan. Kompleksitas akhir algoritma menjadi ```O(N/K*(log N)^2)```. 
+```O(N/K)``` dengan K adalah jumlah proses. Kompleksitas algoritma menjadi ```O(N/K*(log N)^2)```. Akan tetapi, karena nilai K=N, maka 
+kompleksitas algoritma menjadi ```O((log N)^2)```. 
 Solusi ini sudah cukup baik, namun bisa ditingkatkan lagi apabila ditemukan cara paralelisasi yang lebih efektif 
 (misalnya dengan memparalelisasi looping pertama dan kedua dengan benar). 
 
 Cara lain untuk mengoptimasi adalah dengan merancang algoritma bitonic sort 
-yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array bukan kelipatan 2 (pada solusi yang saya gunakan masih 
-menggunakan elemen dummy). 
+yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array bukan kelipatan 2. 
 
 ### Jumlah Thread
 Jumlah proses yang digunakan adalah sama dengan ukuran array. Jumlah thread selalu 512 sedangkan jumlah block adalah ukuran array dibagi jumlah thread. 
