@@ -1,0 +1,336 @@
+-----------------------------------------
+Thu Mar 29 08:58:29 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 281.095505
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:31 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 525.951385
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:31 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 484.943390
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:32 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 494.956970
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:35 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 439.882278
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:36 2018
+Problem Size: 512
+Process: Serial
+Serial wall clock time (microseconds) = 294.923782
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:41 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 838.041306
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:42 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 958.919525
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:43 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 832.080841
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:43 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 749.111176
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:45 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 749.111176
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:45 2018
+Problem Size: 1024
+Process: Serial
+Serial wall clock time (microseconds) = 747.919083
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:55 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4766.941071
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:56 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4604.101181
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:56 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4666.090012
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:57 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4610.061646
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:58 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4779.100418
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:58:59 2018
+Problem Size: 4096
+Process: Serial
+Serial wall clock time (microseconds) = 4252.910614
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:07 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70756.912231
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:08 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70929.050446
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:09 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70732.116699
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:10 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70569.992065
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:11 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70580.005646
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:12 2018
+Problem Size: 65536
+Process: Serial
+Serial wall clock time (microseconds) = 70672.035217
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:19 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 352247.953415
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:21 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 352099.895477
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:22 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 352142.095566
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:23 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 352333.068848
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:24 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 352000.951767
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:25 2018
+Problem Size: 262144
+Process: Serial
+Serial wall clock time (microseconds) = 353120.088577
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:41 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1720877.885818
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:48 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1719752.073288
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:52 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1721033.096313
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:55 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1719468.116760
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 08:59:59 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1721673.011780
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:00:08 2018
+Problem Size: 1048576
+Process: Serial
+Serial wall clock time (microseconds) = 1726861.000061
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:00:21 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18181659.936905
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:00:49 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18317732.095718
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:01:14 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18018579.959869
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:01:38 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18007358.074188
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:02:02 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18041908.025742
+-----------------------------------------
+
+
+-----------------------------------------
+Thu Mar 29 09:02:24 2018
+Problem Size: 8388608
+Process: Serial
+Serial wall clock time (microseconds) = 18007970.094681
+-----------------------------------------
+
+
