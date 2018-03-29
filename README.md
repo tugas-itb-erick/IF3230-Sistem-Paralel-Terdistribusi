@@ -46,8 +46,7 @@ Berdasarkan solusi yang saya gunakan, waktu eksekusi bitonic sort dapat mencapai
 
 Karena paralelisasi dilakukan pada setiap iterasi 
 penukaran elemen (kompleksitasnya adalah ```O(N)```), kompleksitas iterasi tersebut menjadi lebih cepat, yaitu menjadi 
-```O(N/K)``` dengan K adalah jumlah proses. Kompleksitas algoritma menjadi ```O(N/K*(log N)^2)```. Akan tetapi, karena nilai K=N, maka 
-kompleksitas algoritma menjadi ```O((log N)^2)```. 
+```O(N/K)``` dengan K adalah jumlah proses. Kompleksitas akhir algoritma menjadi ```O(N/K*(log N)^2)```. 
 Solusi ini sudah cukup baik, namun bisa ditingkatkan lagi apabila ditemukan cara paralelisasi yang lebih efektif 
 (misalnya dengan memparalelisasi looping pertama dan kedua dengan benar). 
 
