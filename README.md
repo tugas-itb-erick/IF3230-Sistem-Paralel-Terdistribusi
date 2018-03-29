@@ -54,9 +54,9 @@ Cara lain untuk mengoptimasi adalah dengan merancang algoritma bitonic sort
 yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array bukan kelipatan 2. 
 
 ### Jumlah Thread
-Jumlah proses yang digunakan adalah sama dengan ukuran array. Jumlah thread selalu 512 sedangkan jumlah block adalah ukuran array dibagi jumlah thread. 
-Misalnya apabila ukuran array sebesar 4096, maka akan ada 4096 proses terpisah dengan jumlah block sebesar 8 dan jumlah thread sebesar 512. Jumlah 
-proses disesuaikan dengan ukuran array karena CUDA sudah menyediakan struktur data untuk mendukung *multithreading* dengan proses yang sangat banyak. 
+Jumlah thread adalah 512 sedangkan jumlah block adalah ukuran array dibagi jumlah thread. 
+Misalnya apabila ukuran array sebesar 4096, maka akan ada 4096 proses terpisah dengan jumlah block sebesar 8 dan jumlah thread sebesar 512. Apabila 
+jumlah block dan thread dikali, maka hasilnya sama dengan ukuran array. 
 
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel.
