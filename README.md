@@ -58,6 +58,10 @@ Jumlah thread adalah 512 sedangkan jumlah block adalah ukuran array dibagi jumla
 Misalnya apabila ukuran array sebesar 4096, maka akan ada 4096 proses terpisah dengan jumlah block sebesar 8 dan jumlah thread sebesar 512. Apabila 
 jumlah block dan thread dikali, maka hasilnya sama dengan ukuran array. 
 
+Nilai tersebut dipilih karena ukuran persoalan paling kecil adalah 512 sehingga ukuran yang lebih besar akan menyebabkan alokasi thread lebih besar 
+daripada ukuran array tersebut. Dari jumlah thread 1 sampai 512, jumlah thread sebesar 512 paling cepat untuk mengeksekusi bitonic sort pada 
+semua kasus ukuran array. 
+
 ### Pengukuran Kinerja (Tabel)
 Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel.
 
