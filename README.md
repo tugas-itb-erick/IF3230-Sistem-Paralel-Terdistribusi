@@ -62,13 +62,14 @@ yang tidak perlu mengalokasikan dan memproses elemen dummy bila ukuran array buk
 menggunakan elemen dummy). 
 
 ### Jumlah Thread
-Jumlah thread/proses yang digunakan adalah 2. Angka 2 dipilih karena berdasarkan hasil percobaan, program dengan 2 buah 
-proses memiliki efisiensi lebih tinggi ketimbang dengan program yang memiliki 4 atau 8 proses atau lebih. 
+Jumlah proses yang digunakan adalah sama dengan ukuran array. Jumlah thread selalu 512 sedangkan jumlah block adalah ukuran array dibagi jumlah thread. 
+Misalnya apabila ukuran array sebesar 4096, maka akan ada 4096 proses terpisah dengan jumlah block sebesar 8 dan jumlah thread sebesar 512. Jumlah 
+proses disesuaikan dengan ukuran array karena CUDA sudah menyediakan struktur data untuk mendukung *multithreading* dengan proses yang sangat banyak. 
 
 ### Pengukuran Kinerja (Tabel)
-Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan tabel *speedup* beserta efisiensinya.
+Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel.
 
-#### Serial (1 proses)
+#### Serial
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Rata-Rata (μs)** |
 | ---------------- | -------------------- | -------------------- | -------------------- | ------------------ |
 | 512     | 525.951385 | 484.943390 | 494.956970 | 501.950582 |
@@ -79,22 +80,24 @@ Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan 
 | 1048576 | 1721033.096313 | 1721673.011780 | 1726861.000061 | 1723189.036051 |
 | 8388608 | 18181659.936905 | 18317732.095718 | 18041908.025742 | 18180433.352788 |
 
-#### Paralel (n proses) 
-| **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Rata-Rata (μs)** | **Speed Up** | **Efisiensi** |
-| ---------------- | -------------------- | -------------------- | -------------------- | ------------------ | ------------ | ------------- |
-| 512     | 869102.001190 | 870419.979095 | 872874.975204 |  |  |  |
-| 1024    | 867660.045624 | 869436.025620 | 864880.084991 |  |  |  |
-| 4096    | 869415.044785 | 864294.052124 | 869880.914688 |  |  |  |
-| 65536   | 860658.884048 | 860471.963882 | 866123.914719 |  |  |  |
-| 262144  | 869347.095490 | 863545.894623 | 869842.052460 |  |  |  |
-| 1048576 | 882438.898087 | 878082.990646 | 874258.041382 |  |  |  |
-| 8388608 | 994366.884232 | 995826.005936 | 991144.895554 |  |  |  |
+#### Paralel
+| **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Rata-Rata (μs)** | **Speed Up** |
+| ---------------- | -------------------- | -------------------- | -------------------- | ------------------ | ------------ |
+| 512     | 869102.001190 | 870419.979095 | 872874.975204 | 870798.985163 | 0.0005x |
+| 1024    | 867660.045624 | 869436.025620 | 864880.084991 | 867325.385412 | 0.001x  |
+| 4096    | 869415.044785 | 864294.052124 | 869880.914688 | 867863.337199 | 0.005x  |
+| 65536   | 860658.884048 | 860471.963882 | 866123.914719 | 862418.254216 | 0.082x  |
+| 262144  | 869347.095490 | 863545.894623 | 869842.052460 | 867578.347524 | 0.406x  |
+| 1048576 | 882438.898087 | 878082.990646 | 874258.041382 | 878259.976705 | 1.962x  |
+| 8388608 | 994366.884232 | 995826.005936 | 991144.895554 | 993779.261907 | 18.294x |
 
 ### Analisis Kinerja Serial dan Paralel
-Berdasarkan hasil pengukuran kinerja diatas, terlihat bahwa kinerja program paralel lebih cepat daripada serial untuk semua kasus uji. 
-Hasil diatas menunjukkan bahwa program dengan 2 proses memiliki *speedup* dan efisiensi tertinggi. Hal tersebut demikian karena 
-pada kasus 2 proses, *overhead* lebih sedikit karena lebih sedikit context switching dan komunikasi antar proses. 
-Pada kasus 4 proses maupun 8 proses, terkadang *speedup* bisa lebih tinggi dari kasus 2 proses tetapi rata-rata *speedup*-nya lebih 
-rendah serta efisiensinya jauh lebih rendah dari kasus 2 proses. Efisiensi menjadi lebih kecil karena pada kasus banyak proses, lebih 
-banyak resource yang digunakan. Kesimpulannya program yang saya buat paling efektif dilakukan dengan 2 proses karena efisiensinya paling 
-tinggi (mencapai 80~90%). 
+Berdasarkan hasil pengukuran kinerja diatas, terlihat bahwa kinerja program paralel jauh lebih lambat daripada serial untuk ukuran arrray 
+yang kecil (512~262144). Namun ketika ukuran array mencapai 1 juta, program paralel lebih cepat dengan *speedup* hampir mencapai dua kali. 
+Pada kasus ukuran array yang sangat besar (8 juta), program paralel memiliki *speedup* mencapai 18x. Pada kasus ukuran array yang kecil, program 
+paralel lebih lambat karena overhead yang muncul (karena menggunakan banyak proses) lebih signifikan daripada waktu eksekusi untuk mengurutkan array. 
+Akan tetapi, seiring bertambahnya ukuran array, overhead menjadi semakin tidak signifikan sehingga *speedup* menjadi lebih tinggi, hingga mencapai 
+suatu titik dimana program paralel berjalan lebih cepat daripada program serial. Hal ini terlihat dari rata-rata waktu eksekusi yang tidak berbeda jauh 
+untuk masing-masing kasus ukuran array. Pada kasus ukuran array 8 juta, program paralel jauh lebih cepat daripada serial karena overhead sudah sangat 
+tidak signifikan, tetapi rata-rata waktunya meningkat dariada kasus sebelumnya karena jumlah proses sudah melebihi batas yang disediakan oleh CUDA. 
+Kesimpulannya, paralelisasi dengan CUDA sangat efektif pada ukuran kasus yang sangat besar dan kurang efektif pada ukuran kasus yang kecil. 
