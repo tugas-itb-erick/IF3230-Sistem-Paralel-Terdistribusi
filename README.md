@@ -11,7 +11,7 @@ yang dibutuhkan untuk melakukan sort secara paralel.
 
 ## Penggunaan Program
 1. Lakukan kompilasi program dengan perintah ```make```. Pastikan sudah melakukan installasi OpenMPI sebelumnya. 
-2. Jalankan program dengan perintah ```,/bitonic_sort n p```, dengan ```n``` adalah ukuran array dan ```p``` adalah jumlah proses (optional).
+2. Jalankan program dengan perintah ```,/bitonic_sort n p```, dengan ```n``` adalah ukuran array dan ```p``` adalah jumlah thread per block (optional).
 3. Hasil array sebelum dan sesudah di-sort dapat dilihat pada file ```data/input.txt``` dan ```data/output.txt```
 4. Output waktu eksekusi beserta detilnya dapat dilihat pada file ```output/log.txt```
 
@@ -71,24 +71,24 @@ Berikut adalah tabel pengujian waktu untuk bitonic sort serial dan paralel, dan 
 #### Serial (1 proses)
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Rata-Rata (μs)** |
 | ---------------- | -------------------- | -------------------- | -------------------- | ------------------ |
-| 512     |  |  |  |  |
-| 1024    |  |  |  |  |
-| 4096    |  |  |  |  |
-| 65536   |  |  |  |  |
-| 262144  |  |  |  |  |
-| 1048576 |  |  |  |  |
-| 8388608 |  |  |  |  |
+| 512     | 525.951385 | 484.943390 | 494.956970 |  |
+| 1024    | 838.041306 | 958.919525 | 832.080841 |  |
+| 4096    | 4766.941071 | 4779.100418 | 4252.910614 |  |
+| 65536   | 70756.912231 | 70929.050446 | 70732.116699 |  |
+| 262144  | 352247.953415 | 352333.068848 | 353120.088577 |  |
+| 1048576 | 1721033.096313 | 1721673.011780 | 1726861.000061 |  |
+| 8388608 | 18181659.936905 | 18317732.095718 | 18041908.025742 |  |
 
 #### Paralel (n proses) 
 | **Ukuran Array** | **Percobaan 1 (μs)** | **Percobaan 2 (μs)** | **Percobaan 3 (μs)** | **Rata-Rata (μs)** | **Speed Up** | **Efisiensi** |
 | ---------------- | -------------------- | -------------------- | -------------------- | ------------------ | ------------ | ------------- |
-| 512     |  |  |  |  |  |  |
-| 1024    |  |  |  |  |  |  |
-| 4096    |  |  |  |  |  |  |
-| 65536   |  |  |  |  |  |  |
-| 262144  |  |  |  |  |  |  |
-| 1048576 |  |  |  |  |  |  |
-| 8388608 |  |  |  |  |  |  |
+| 512     | 869102.001190 | 870419.979095 | 872874.975204 |  |  |  |
+| 1024    | 867660.045624 | 869436.025620 | 864880.084991 |  |  |  |
+| 4096    | 869415.044785 | 864294.052124 | 869880.914688 |  |  |  |
+| 65536   | 860658.884048 | 860471.963882 | 866123.914719 |  |  |  |
+| 262144  | 869347.095490 | 863545.894623 | 869842.052460 |  |  |  |
+| 1048576 | 882438.898087 | 878082.990646 | 874258.041382 |  |  |  |
+| 8388608 | 994366.884232 | 995826.005936 | 991144.895554 |  |  |  |
 
 ### Analisis Kinerja Serial dan Paralel
 Berdasarkan hasil pengukuran kinerja diatas, terlihat bahwa kinerja program paralel lebih cepat daripada serial untuk semua kasus uji. 
