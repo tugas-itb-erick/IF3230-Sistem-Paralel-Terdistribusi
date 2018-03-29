@@ -58,7 +58,7 @@ __global__ void bitonicSortStep(int* arr, int j, int k) {
 /** the main program **/ 
 int main(int argc, char **argv) {
   int* arr;
-  int N, fakeN;
+  int N, N;
   int num_thread;
 
   struct timeval startwtime, endwtime;
@@ -80,13 +80,12 @@ int main(int argc, char **argv) {
 
   // Initialize arr
   N = atoi(argv[1]);
-  fakeN = nearestPowerOfTwo(N);
-  arr = (int *) malloc(fakeN * sizeof(int));
-  init(arr, fakeN);
+  arr = (int *) malloc(N * sizeof(int));
+  init(arr, N);
   rng(arr, N);
 
 
-  BLOCKS = fakeN / THREADS;
+  BLOCKS = N / THREADS;
   NUM_VALS = BLOCKS * THREADS;
 
   writeToFile("data/input.txt", arr, N);
@@ -110,8 +109,8 @@ int main(int argc, char **argv) {
   fprintf(log_file, "Block x Thread: %d x %d\n", BLOCKS, THREADS);
 
   int* newArr;
-  newArr = (int *) malloc(fakeN * sizeof(int));
-  memcpy(newArr, arr, fakeN);
+  newArr = (int *) malloc(N * sizeof(int));
+  memcpy(newArr, arr, N);
 
   // [Start Time]
   gettimeofday (&startwtime, NULL);
@@ -131,7 +130,7 @@ int main(int argc, char **argv) {
 
   writeToFile("data/output.txt", newArr, N);
       
-  test(newArr, fakeN);
+  test(newArr, N);
   sum_parallel += seq_time;
   free(newArr);
   
