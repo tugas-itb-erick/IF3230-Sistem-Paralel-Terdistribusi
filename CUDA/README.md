@@ -1,7 +1,7 @@
 # CUDA - Bitonic Sort
-IF3230 - Sistem Paralel dan Terdistribusi
+Praktikum 3 IF3230 Sistem Paralel dan Terdistribusi
 
-Erick Wijaya - 13515057
+[Erick Wijaya - 13515057](https://github.com/wijayaerick)
 
 ## Deskripsi Singkat
 Program ini adalah ekstensi dari program bitonic sort yang disediakan oleh asisten. 
@@ -16,7 +16,7 @@ yang dibutuhkan untuk melakukan sort secara paralel.
 4. Output waktu eksekusi beserta detilnya dapat dilihat pada file ```output/log.txt```
 
 ## Pembagian Tugas
-Tugas ini dikerjakan oleh Erick Wijaya (13515057). 
+Tugas ini dikerjakan oleh [Erick Wijaya (13515057)](https://github.com/wijayaerick). 
 
 ## Laporan Pengujian
 Pada bagian ini akan dijelaskan mengenai deskripsi solusi paralel yang digunakan, analisis solusi, jumlah thread, pengujian, dan analisis hasil uji. 
