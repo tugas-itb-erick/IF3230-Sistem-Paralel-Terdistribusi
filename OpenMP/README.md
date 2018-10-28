@@ -1,6 +1,7 @@
 # OpenMP - Bitonic Sort
-IF3230 - Sistem Paralel dan Terdistribusi
-Erick Wijaya - 13515057
+Praktikum 1 IF3230 Sistem Paralel dan Terdistribusi
+
+[Erick Wijaya - 13515057](https://github.com/wijayaerick)
 
 ## Deskripsi Singkat
 Program ini adalah ekstensi dari program bitonic sort yang disediakan oleh asisten. Program ini dapat mengeksekusi bitonic sort baik secara serial maupun secara paralel. Setelah sorting dilakukan, program akan mencetak waktu eksekusi rata-rata yang dibutuhkan untuk melakukan sort secara serial dan secara paralel. 
